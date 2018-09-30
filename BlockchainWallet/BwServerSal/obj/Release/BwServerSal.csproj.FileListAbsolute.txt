@@ -10,3 +10,15 @@ F:\Work\BlockchainWallet\BwServerSal\bin\Release\BwSal.pdb
 F:\Work\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.csprojResolveAssemblyReference.cache
 F:\Work\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.dll
 F:\Work\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwServerSal.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwServerSal.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwBackModel.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwCommon.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwSal.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\log4net.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwBackModel.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwCommon.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\bin\Release\BwSal.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.csprojResolveAssemblyReference.cache
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwServerSal\obj\Release\BwServerSal.pdb

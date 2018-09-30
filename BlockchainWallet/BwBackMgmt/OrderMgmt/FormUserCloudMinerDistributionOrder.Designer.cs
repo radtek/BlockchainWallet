@@ -47,6 +47,7 @@
             this.dgvRecord = new DevExpress.XtraGrid.GridControl();
             this.gvRecord = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -57,7 +58,6 @@
             this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dnStoreOrder = new DevExpress.XtraEditors.DataNavigator();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).BeginInit();
@@ -89,7 +89,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1155, 101);
+            this.groupControl1.Size = new System.Drawing.Size(1130, 101);
             this.groupControl1.TabIndex = 11;
             this.groupControl1.Text = "查询条件";
             // 
@@ -204,7 +204,7 @@
             this.dgvRecord.Location = new System.Drawing.Point(0, 101);
             this.dgvRecord.MainView = this.gvRecord;
             this.dgvRecord.Name = "dgvRecord";
-            this.dgvRecord.Size = new System.Drawing.Size(1155, 534);
+            this.dgvRecord.Size = new System.Drawing.Size(1130, 442);
             this.dgvRecord.TabIndex = 19;
             this.dgvRecord.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvRecord});
@@ -243,6 +243,14 @@
             this.gridColumn7.Visible = true;
             this.gridColumn7.VisibleIndex = 0;
             this.gridColumn7.Width = 137;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "姓名";
+            this.gridColumn1.FieldName = "Name";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 1;
             // 
             // gridColumn13
             // 
@@ -337,9 +345,9 @@
             new DevExpress.XtraEditors.NavigatorCustomButton(2, 3, true, true, "", "2"),
             new DevExpress.XtraEditors.NavigatorCustomButton(3, 5, true, true, "", "3")});
             this.dnStoreOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dnStoreOrder.Location = new System.Drawing.Point(0, 635);
+            this.dnStoreOrder.Location = new System.Drawing.Point(0, 543);
             this.dnStoreOrder.Name = "dnStoreOrder";
-            this.dnStoreOrder.Size = new System.Drawing.Size(1155, 24);
+            this.dnStoreOrder.Size = new System.Drawing.Size(1130, 24);
             this.dnStoreOrder.TabIndex = 20;
             this.dnStoreOrder.TextLocation = DevExpress.XtraEditors.NavigatorButtonsTextLocation.End;
             this.dnStoreOrder.TextStringFormat = "";
@@ -361,19 +369,11 @@
             this.imageCollection1.InsertGalleryImage("doublelast_16x16.png", "office2013/arrows/doublelast_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("office2013/arrows/doublelast_16x16.png"), 5);
             this.imageCollection1.Images.SetKeyName(5, "doublelast_16x16.png");
             // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = "姓名";
-            this.gridColumn1.FieldName = "Name";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 1;
-            // 
             // FormUserCloudMinerDistributionOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1155, 659);
+            this.ClientSize = new System.Drawing.Size(1130, 567);
             this.Controls.Add(this.dgvRecord);
             this.Controls.Add(this.dnStoreOrder);
             this.Controls.Add(this.groupControl1);

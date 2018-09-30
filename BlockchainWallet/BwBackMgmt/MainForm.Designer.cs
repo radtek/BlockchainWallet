@@ -371,6 +371,7 @@
             this.btnQQY.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnQQY.ImageOptions.Image")));
             this.btnQQY.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnQQY.ImageOptions.LargeImage")));
             this.btnQQY.Name = "btnQQY";
+            this.btnQQY.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnQQY.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnQQHY_ItemClick);
             // 
             // btnQQL
@@ -380,6 +381,7 @@
             this.btnQQL.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnQQL.ImageOptions.Image")));
             this.btnQQL.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnQQL.ImageOptions.LargeImage")));
             this.btnQQL.Name = "btnQQL";
+            this.btnQQL.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btnQQL.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnQQHL_ItemClick);
             // 
             // btnQQX
@@ -425,8 +427,8 @@
             // 
             this.btnUserCloudMiner.Caption = "已售云矿机";
             this.btnUserCloudMiner.Id = 28;
-            this.btnUserCloudMiner.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.ImageOptions.Image")));
-            this.btnUserCloudMiner.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.ImageOptions.LargeImage")));
+            this.btnUserCloudMiner.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnUserCloudMiner.ImageOptions.Image")));
+            this.btnUserCloudMiner.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnUserCloudMiner.ImageOptions.LargeImage")));
             this.btnUserCloudMiner.Name = "btnUserCloudMiner";
             this.btnUserCloudMiner.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUserCloudMiner_ItemClick);
             // 

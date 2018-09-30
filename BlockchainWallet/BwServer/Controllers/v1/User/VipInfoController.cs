@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using BwDal.User;
 using BwServer.Models;
-using BwServer.Models.v1.User.UserInfo;
 using BwServer.Models.v1.User.VipInfo;
 
 namespace BwServer.Controllers.v1.User

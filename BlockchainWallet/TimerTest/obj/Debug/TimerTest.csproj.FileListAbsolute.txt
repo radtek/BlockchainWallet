@@ -3,3 +3,9 @@ F:\Work\BlockchainWallet\TimerTest\bin\Debug\TimerTest.exe
 F:\Work\BlockchainWallet\TimerTest\bin\Debug\TimerTest.pdb
 F:\Work\BlockchainWallet\TimerTest\obj\Debug\TimerTest.exe
 F:\Work\BlockchainWallet\TimerTest\obj\Debug\TimerTest.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\bin\Debug\TimerTest.exe.config
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\bin\Debug\TimerTest.exe
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\bin\Debug\TimerTest.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\obj\Debug\TimerTest.csprojResolveAssemblyReference.cache
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\obj\Debug\TimerTest.exe
+F:\Work\Git\BlockchainWallet\BlockchainWallet\TimerTest\obj\Debug\TimerTest.pdb

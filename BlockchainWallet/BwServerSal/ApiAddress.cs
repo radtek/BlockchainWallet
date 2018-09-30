@@ -55,6 +55,9 @@ namespace BwServerSal
         public static string QueryGaveCommodityStoreOrder = ApiUrlRoot + "/v1/Commodity/StoreOrder_/QueryGaveCommodityStoreOrder";
 
 
+        public static string QueryUserCloudMiner = ApiUrlRoot + "/v1/Commodity/UserCloudMiner_/QueryUserCloudMiner";
+
+
 
         //====================公告相关=================================
         public static string QueryAnnouncementInfo = ApiUrlRoot + "/v1/System/AnnouncementInfo/QueryAnnouncementInfo";

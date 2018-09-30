@@ -48,6 +48,7 @@
     <Compile Include="CommodityMgmt\QueryGaveCommodityStoreOrderModel.cs" />
     <Compile Include="CommodityMgmt\StoreOrderPayDetailModel.cs" />
     <Compile Include="CommodityMgmt\StoreOrderQueryModel.cs" />
+    <Compile Include="CommodityMgmt\UserCloudMinerModel.cs" />
     <Compile Include="CustomerServiceSystem\IdCardCertification\IdCardCertificationQueryModel.cs" />
     <Compile Include="CustomerServiceSystem\IdCardCertification\IdCardCheckModel.cs" />
     <Compile Include="DataPagingModel.cs" />

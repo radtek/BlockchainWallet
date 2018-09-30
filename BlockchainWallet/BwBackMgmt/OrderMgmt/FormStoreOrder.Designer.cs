@@ -92,7 +92,7 @@
             this.dgvStoreOrder.Location = new System.Drawing.Point(0, 101);
             this.dgvStoreOrder.MainView = this.gvStoreOrder;
             this.dgvStoreOrder.Name = "dgvStoreOrder";
-            this.dgvStoreOrder.Size = new System.Drawing.Size(1155, 534);
+            this.dgvStoreOrder.Size = new System.Drawing.Size(1327, 442);
             this.dgvStoreOrder.TabIndex = 12;
             this.dgvStoreOrder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvStoreOrder});
@@ -359,7 +359,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1155, 101);
+            this.groupControl1.Size = new System.Drawing.Size(1327, 101);
             this.groupControl1.TabIndex = 13;
             this.groupControl1.Text = "查询条件";
             // 
@@ -494,9 +494,9 @@
             new DevExpress.XtraEditors.NavigatorCustomButton(2, 3, true, true, "", "2"),
             new DevExpress.XtraEditors.NavigatorCustomButton(3, 5, true, true, "", "3")});
             this.dnStoreOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dnStoreOrder.Location = new System.Drawing.Point(0, 635);
+            this.dnStoreOrder.Location = new System.Drawing.Point(0, 543);
             this.dnStoreOrder.Name = "dnStoreOrder";
-            this.dnStoreOrder.Size = new System.Drawing.Size(1155, 24);
+            this.dnStoreOrder.Size = new System.Drawing.Size(1327, 24);
             this.dnStoreOrder.TabIndex = 14;
             this.dnStoreOrder.TextLocation = DevExpress.XtraEditors.NavigatorButtonsTextLocation.End;
             this.dnStoreOrder.TextStringFormat = "";
@@ -522,7 +522,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1155, 659);
+            this.ClientSize = new System.Drawing.Size(1327, 567);
             this.Controls.Add(this.dgvStoreOrder);
             this.Controls.Add(this.dnStoreOrder);
             this.Controls.Add(this.groupControl1);

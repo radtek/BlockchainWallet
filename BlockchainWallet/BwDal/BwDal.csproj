@@ -49,6 +49,7 @@
     <Compile Include="Commodity\StoreOrderDal.cs" />
     <Compile Include="Commodity\StoreOrderDal_.cs" />
     <Compile Include="Commodity\UserCloudMinerDal.cs" />
+    <Compile Include="Commodity\UserCloudMinerDal_.cs" />
     <Compile Include="CustomerServiceSystem\IdCardCertificationDal.cs" />
     <Compile Include="CustomerServiceSystem\ReceivablesInformationDal.cs" />
     <Compile Include="DataPagingModel.cs" />

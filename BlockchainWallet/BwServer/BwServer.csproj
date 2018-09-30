@@ -97,6 +97,7 @@
     <Compile Include="Controllers\v1\Commodity\StoreOrderController.cs" />
     <Compile Include="Controllers\v1\Commodity\StoreOrder_Controller.cs" />
     <Compile Include="Controllers\v1\Commodity\UserCloudMinerController.cs" />
+    <Compile Include="Controllers\v1\Commodity\UserCloudMiner_Controller.cs" />
     <Compile Include="Controllers\v1\CustomerServiceSystem\IdCardCertificationController.cs" />
     <Compile Include="Controllers\v1\CustomerServiceSystem\ReceivablesInformationController.cs" />
     <Compile Include="Controllers\v1\System\AnnouncementInfoController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel.cs" />
     <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel_.cs" />
     <Compile Include="Models\v1\Commodity\UserCloudMiner\UserCloudMinerModel.cs" />
+    <Compile Include="Models\v1\Commodity\UserCloudMiner\UserCloudMinerModel_.cs" />
     <Compile Include="Models\v1\System\BugModel.cs" />
     <Compile Include="Models\v1\CustomerServiceSystem\IdCardCertification\IdCardCertificationModel.cs" />
     <Compile Include="Models\v1\CustomerServiceSystem\IdCardCertification\IdCardCheckModel.cs" />

@@ -6,3 +6,11 @@ F:\Work\BlockchainWallet\BwDal\bin\Release\BwCommon.pdb
 F:\Work\BlockchainWallet\BwDal\obj\Release\BwDal.csprojResolveAssemblyReference.cache
 F:\Work\BlockchainWallet\BwDal\obj\Release\BwDal.dll
 F:\Work\BlockchainWallet\BwDal\obj\Release\BwDal.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\bin\Release\BwDal.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\bin\Release\BwDal.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\bin\Release\BwCommon.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\bin\Release\log4net.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\bin\Release\BwCommon.pdb
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\obj\Release\BwDal.csprojResolveAssemblyReference.cache
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\obj\Release\BwDal.dll
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwDal\obj\Release\BwDal.pdb

@@ -51,6 +51,7 @@
     <Compile Include="ServiceApi\Commodity\CloudMinerApi.cs" />
     <Compile Include="ServiceApi\Commodity\CommodityApi.cs" />
     <Compile Include="ServiceApi\Commodity\StoreOrderApi.cs" />
+    <Compile Include="ServiceApi\Commodity\UserCloudMinerApi.cs" />
     <Compile Include="ServiceApi\CustomerServiceSystem\IdCardCertificationApi.cs" />
     <Compile Include="ServiceApi\Employee\EmployeeInfoApi.cs" />
     <Compile Include="ServiceApi\Employee\LoginApi.cs" />
