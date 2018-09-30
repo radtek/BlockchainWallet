@@ -1,0 +1,12 @@
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\EncryptionTools.exe.config
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\EncryptionTools.exe
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\EncryptionTools.pdb
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\BwCommon.dll
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\log4net.dll
+F:\Work\BlockchainWallet\EncryptionTools\bin\Debug\BwCommon.pdb
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.csprojResolveAssemblyReference.cache
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.FormMain.resources
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.Properties.Resources.resources
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.csproj.GenerateResource.Cache
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.exe
+F:\Work\BlockchainWallet\EncryptionTools\obj\Debug\EncryptionTools.pdb

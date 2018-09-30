@@ -1,0 +1,5 @@
+F:\Work\BlockchainWallet\BwBackModel\bin\Release\BwBackModel.dll
+F:\Work\BlockchainWallet\BwBackModel\bin\Release\BwBackModel.pdb
+F:\Work\BlockchainWallet\BwBackModel\obj\Release\BwBackModel.dll
+F:\Work\BlockchainWallet\BwBackModel\obj\Release\BwBackModel.pdb
+F:\Work\BlockchainWallet\BwBackModel\obj\Release\BwBackModel.csprojResolveAssemblyReference.cache

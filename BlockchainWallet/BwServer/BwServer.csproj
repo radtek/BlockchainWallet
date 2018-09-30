@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A96B368-3261-4E93-8F60-21C0C40598E3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BwServer</RootNamespace>
+    <AssemblyName>BwServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Resource\CommodityImages\CloudMiner\E1.png" />
+    <Content Include="Resource\CommodityImages\CloudMiner\E2.png" />
+    <Content Include="Resource\CommodityImages\CloudMiner\EL.png" />
+    <Content Include="Resource\CommodityImages\CloudMiner\P.png" />
+    <Content Include="Resource\CommodityImages\CloudMiner\S.png" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\VersionControllerSelector.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\ServerHelper.cs" />
+    <Compile Include="Controllers\AuthActionFilterAttribute.cs" />
+    <Compile Include="Controllers\RequestAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\ExceptionHandling.cs" />
+    <Compile Include="Controllers\v1\Agent\AgentController.cs" />
+    <Compile Include="Controllers\v1\Agent\CloudMinerDistribution_Controller.cs" />
+    <Compile Include="Controllers\v1\Agent\CloudMinerProduction_Controller.cs" />
+    <Compile Include="Controllers\v1\Agent\DistributionMechanismController.cs" />
+    <Compile Include="Controllers\v1\Agent\CloudMinerServer.cs" />
+    <Compile Include="Controllers\v1\Commodity\CloudMinerController.cs" />
+    <Compile Include="Controllers\v1\Commodity\CloudMiner_Controller.cs" />
+    <Compile Include="Controllers\v1\Commodity\StoreOrderController.cs" />
+    <Compile Include="Controllers\v1\Commodity\StoreOrder_Controller.cs" />
+    <Compile Include="Controllers\v1\Commodity\UserCloudMinerController.cs" />
+    <Compile Include="Controllers\v1\CustomerServiceSystem\IdCardCertificationController.cs" />
+    <Compile Include="Controllers\v1\CustomerServiceSystem\ReceivablesInformationController.cs" />
+    <Compile Include="Controllers\v1\System\AnnouncementInfoController.cs" />
+    <Compile Include="Controllers\v1\Commodity\CommodityInfoController.cs" />
+    <Compile Include="Controllers\v1\Employee\EmployeeInfoController.cs" />
+    <Compile Include="Controllers\v1\Employee\EmployeeLoginController.cs" />
+    <Compile Include="Controllers\v1\System\AppVersionController.cs" />
+    <Compile Include="Controllers\v1\System\BugController.cs" />
+    <Compile Include="Controllers\v1\System\PhoneVerificationController.cs" />
+    <Compile Include="Controllers\v1\Transaction\TransactionInfo.cs" />
+    <Compile Include="Controllers\v1\Transaction\TransactionQueue.cs" />
+    <Compile Include="Controllers\v1\Transaction\TransactionService.cs" />
+    <Compile Include="Controllers\v1\Transaction\TransactionSystem.cs" />
+    <Compile Include="Controllers\v1\User\CompanyAccountInfoController.cs" />
+    <Compile Include="Controllers\v1\User\FansController.cs" />
+    <Compile Include="Controllers\v1\User\UpdateSexModel.cs" />
+    <Compile Include="Controllers\v1\User\UserInfoController.cs" />
+    <Compile Include="Controllers\v1\User\UserLoginController.cs" />
+    <Compile Include="Controllers\v1\User\User_Controller.cs" />
+    <Compile Include="Controllers\v1\User\VipInfoController.cs" />
+    <Compile Include="Controllers\v1\Wallet\AuthorizationController.cs" />
+    <Compile Include="Controllers\v1\Wallet\CurrencyInfoController.cs" />
+    <Compile Include="Controllers\v1\Wallet\CurrencyInfo_Controller.cs" />
+    <Compile Include="Controllers\v1\Wallet\WalletInfoController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResultDataModel.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerDistribution\CloudMinerDistributionModel_.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerDistribution\UserCloudMinerDistributionModel_.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerProduct\CloudMinerProductionModel_.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerProduct\UserCloudMinerProductionModel_.cs" />
+    <Compile Include="Models\v1\Commodity\CloudMinerInfo\CloudMinerInfoModel.cs" />
+    <Compile Include="Models\v1\Commodity\CommodityInfo\BuyQualificationInfoModel.cs" />
+    <Compile Include="Models\v1\Commodity\CommodityInfo\CommodityInfoModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\AuditGaveCommodityStoreOrderModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\CreateGaveCommodityStoreOrderModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\GaveCommodityStoreOrderModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderPayDetailModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel.cs" />
+    <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel_.cs" />
+    <Compile Include="Models\v1\Commodity\UserCloudMiner\UserCloudMinerModel.cs" />
+    <Compile Include="Models\v1\System\BugModel.cs" />
+    <Compile Include="Models\v1\CustomerServiceSystem\IdCardCertification\IdCardCertificationModel.cs" />
+    <Compile Include="Models\v1\CustomerServiceSystem\IdCardCertification\IdCardCheckModel.cs" />
+    <Compile Include="Models\v1\CustomerServiceSystem\IdCardCertification\UploadIdCardCertificationInfoModel.cs" />
+    <Compile Include="Models\v1\CustomerServiceSystem\ReceivablesInformation\BankCodeInfoModel.cs" />
+    <Compile Include="Models\v1\CustomerServiceSystem\ReceivablesInformation\ThirdCollectionInfoModel.cs" />
+    <Compile Include="Models\v1\Employee\EmployeeInfo\EmployeeInfoModel.cs" />
+    <Compile Include="Models\v1\System\AnnouncementInfoModel.cs" />
+    <Compile Include="Models\v1\System\PhoneVerificationModel.cs" />
+    <Compile Include="Models\v1\User\Fans\AllFansVipInfoModel.cs" />
+    <Compile Include="Models\v1\User\Fans\FansGenerationCountModel.cs" />
+    <Compile Include="Models\v1\User\Fans\FansModel.cs" />
+    <Compile Include="Models\v1\User\Fans\FansVipCountModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\CompanyAccountInfoModel.cs" />
+    <Compile Include="Models\v1\Employee\EmployeeLogin\EmployeeLoginModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UpdateLoginPasswordModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UpdateNicknameModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UpdatePayPasswordModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UpdatePhoneModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UserInfoRegisterModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\UserInfoModel.cs" />
+    <Compile Include="Models\v1\User\UserLogin\UserLoginModel.cs" />
+    <Compile Include="Models\v1\User\VipInfo\VipSettingModel.cs" />
+    <Compile Include="Models\v1\Wallet\Currency\CurrencyInfoModel.cs" />
+    <Compile Include="Models\v1\Wallet\Currency\CurrencyPriceRecordModel_.cs" />
+    <Compile Include="Models\v1\Wallet\Currency\UpdateQqxPriceModel.cs" />
+    <Compile Include="Models\v1\Wallet\WalletInfo\WalletInfoModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Log\Log4Net.config" />
+    <None Include="Properties\PublishProfiles\BwServer.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Resource\CollectionCodeImage\" />
+    <Folder Include="Resource\IdCardImages\Pass\" />
+    <Folder Include="Resource\IdCardImages\UnPass\" />
+    <Folder Include="Resource\TempImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BwCommon\BwCommon.csproj">
+      <Project>{c2cbd0be-3a48-4988-920c-51cafd31e21c}</Project>
+      <Name>BwCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BwDal\BwDal.csproj">
+      <Project>{598dbaf5-137c-40a8-8d2e-453472e5ca2e}</Project>
+      <Name>BwDal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2160</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8088/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

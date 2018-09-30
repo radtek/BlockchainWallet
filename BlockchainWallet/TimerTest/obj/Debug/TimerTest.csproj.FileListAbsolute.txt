@@ -1,0 +1,5 @@
+F:\Work\BlockchainWallet\TimerTest\bin\Debug\TimerTest.exe.config
+F:\Work\BlockchainWallet\TimerTest\bin\Debug\TimerTest.exe
+F:\Work\BlockchainWallet\TimerTest\bin\Debug\TimerTest.pdb
+F:\Work\BlockchainWallet\TimerTest\obj\Debug\TimerTest.exe
+F:\Work\BlockchainWallet\TimerTest\obj\Debug\TimerTest.pdb

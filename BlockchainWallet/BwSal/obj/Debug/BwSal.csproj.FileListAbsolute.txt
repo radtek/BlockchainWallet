@@ -1,0 +1,4 @@
+F:\Work\BlockchainWallet\BwSal\bin\Debug\BwSal.dll
+F:\Work\BlockchainWallet\BwSal\bin\Debug\BwSal.pdb
+F:\Work\BlockchainWallet\BwSal\obj\Debug\BwSal.dll
+F:\Work\BlockchainWallet\BwSal\obj\Debug\BwSal.pdb

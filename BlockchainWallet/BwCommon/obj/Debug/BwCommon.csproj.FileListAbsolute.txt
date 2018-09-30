@@ -1,0 +1,6 @@
+F:\Work\BlockchainWallet\BwCommon\bin\Debug\BwCommon.dll
+F:\Work\BlockchainWallet\BwCommon\bin\Debug\BwCommon.pdb
+F:\Work\BlockchainWallet\BwCommon\bin\Debug\log4net.dll
+F:\Work\BlockchainWallet\BwCommon\obj\Debug\BwCommon.dll
+F:\Work\BlockchainWallet\BwCommon\obj\Debug\BwCommon.pdb
+F:\Work\BlockchainWallet\BwCommon\obj\Debug\BwCommon.csprojResolveAssemblyReference.cache

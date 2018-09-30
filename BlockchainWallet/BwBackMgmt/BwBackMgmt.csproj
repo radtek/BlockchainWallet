@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5C8CC04-0E28-49F0-A46E-879617ECFA17}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BwBackMgmt</RootNamespace>
+    <AssemblyName>全球换个人钱包后台管理系统</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>mgmt.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>BwBackMgmt.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Images.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.2.UI, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.2.Wizard, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\BwCommon\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutUs\FormAboutUs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutUs\FormAboutUs.Designer.cs">
+      <DependentUpon>FormAboutUs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgentMgmt\FormAgentMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentMgmt\FormAgentMgmt.Designer.cs">
+      <DependentUpon>FormAgentMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgentMgmt\FormDistributionMechanism.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgentMgmt\FormDistributionMechanism.Designer.cs">
+      <DependentUpon>FormDistributionMechanism.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormCloudMiner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormCloudMiner.Designer.cs">
+      <DependentUpon>FormCloudMiner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormCommodityMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormCommodityMgmt.Designer.cs">
+      <DependentUpon>FormCommodityMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormUserCloudMiner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommodityMgmt\FormUserCloudMiner.Designer.cs">
+      <DependentUpon>FormUserCloudMiner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerServiceSystem\FormIdCardCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerServiceSystem\FormIdCardCheck.Designer.cs">
+      <DependentUpon>FormIdCardCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerServiceSystem\SubformIdCardCertification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerServiceSystem\SubformIdCardCertification.Designer.cs">
+      <DependentUpon>SubformIdCardCertification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIndex.Designer.cs">
+      <DependentUpon>FormIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginedUserInfo.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\FormStoreOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\FormStoreOrder.Designer.cs">
+      <DependentUpon>FormStoreOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserCloudMinerDistributionOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserCloudMinerDistributionOrder.Designer.cs">
+      <DependentUpon>FormUserCloudMinerDistributionOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\FormCloudMinerProductionOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\FormCloudMinerProductionOrder.Designer.cs">
+      <DependentUpon>FormCloudMinerProductionOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserCloudMinerProductionOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserCloudMinerProductionOrder.Designer.cs">
+      <DependentUpon>FormUserCloudMinerProductionOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\FormUserOrder.Designer.cs">
+      <DependentUpon>FormUserOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\SubformCloudMinerProductionOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\SubformCloudMinerProductionOrder.Designer.cs">
+      <DependentUpon>SubformCloudMinerProductionOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMgmt\SubformCloudMinerDistributionOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMgmt\SubformCloudMinerDistributionOrder.Designer.cs">
+      <DependentUpon>SubformCloudMinerDistributionOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelEnhanced.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormPassCardMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormPassCardMgmt.Designer.cs">
+      <DependentUpon>FormPassCardMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQL.Designer.cs">
+      <DependentUpon>FormQQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQX.Designer.cs">
+      <DependentUpon>FormQQX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormQQY.Designer.cs">
+      <DependentUpon>FormQQY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassCardMgmt\SubFormPassCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\SubFormPassCard.Designer.cs">
+      <DependentUpon>SubFormPassCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassCardMgmt\SubFormPassCardCurrentAmount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\SubFormPassCardCurrentAmount.Designer.cs">
+      <DependentUpon>SubFormPassCardCurrentAmount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubformBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubformBase.Designer.cs">
+      <DependentUpon>SubformBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemMgmt\FormAnnouncementMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemMgmt\FormAnnouncementMgmt.Designer.cs">
+      <DependentUpon>FormAnnouncementMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\FormCompanyAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\FormCompanyAccount.Designer.cs">
+      <DependentUpon>FormCompanyAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\FormEmployeeAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\FormEmployeeAccount.Designer.cs">
+      <DependentUpon>FormEmployeeAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\FormUserAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\FormUserAccount.Designer.cs">
+      <DependentUpon>FormUserAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\FormVipSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\FormVipSetting.Designer.cs">
+      <DependentUpon>FormVipSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\SubformGaveCommodity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\SubformGaveCommodity.Designer.cs">
+      <DependentUpon>SubformGaveCommodity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\SubformVipUrCloudminer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\SubformVipUrCloudminer.Designer.cs">
+      <DependentUpon>SubformVipUrCloudminer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt\SubformVipUrFans.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMgmt\SubformVipUrFans.Designer.cs">
+      <DependentUpon>SubformVipUrFans.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutUs\FormAboutUs.resx">
+      <DependentUpon>FormAboutUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgentMgmt\FormAgentMgmt.resx">
+      <DependentUpon>FormAgentMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgentMgmt\FormDistributionMechanism.resx">
+      <DependentUpon>FormDistributionMechanism.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommodityMgmt\FormCloudMiner.resx">
+      <DependentUpon>FormCloudMiner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommodityMgmt\FormCommodityMgmt.resx">
+      <DependentUpon>FormCommodityMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommodityMgmt\FormUserCloudMiner.resx">
+      <DependentUpon>FormUserCloudMiner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerServiceSystem\FormIdCardCheck.resx">
+      <DependentUpon>FormIdCardCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerServiceSystem\SubformIdCardCertification.resx">
+      <DependentUpon>SubformIdCardCertification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBase.resx">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIndex.resx">
+      <DependentUpon>FormIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\FormStoreOrder.resx">
+      <DependentUpon>FormStoreOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\FormUserCloudMinerDistributionOrder.resx">
+      <DependentUpon>FormUserCloudMinerDistributionOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\FormCloudMinerProductionOrder.resx">
+      <DependentUpon>FormCloudMinerProductionOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\FormUserCloudMinerProductionOrder.resx">
+      <DependentUpon>FormUserCloudMinerProductionOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\FormUserOrder.resx">
+      <DependentUpon>FormUserOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\SubformCloudMinerProductionOrder.resx">
+      <DependentUpon>SubformCloudMinerProductionOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMgmt\SubformCloudMinerDistributionOrder.resx">
+      <DependentUpon>SubformCloudMinerDistributionOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassCardMgmt\FormPassCardMgmt.resx">
+      <DependentUpon>FormPassCardMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassCardMgmt\FormQQL.resx">
+      <DependentUpon>FormQQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassCardMgmt\FormQQX.resx">
+      <DependentUpon>FormQQX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassCardMgmt\FormQQY.resx">
+      <DependentUpon>FormQQY.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="PassCardMgmt\SubFormPassCardCurrentAmount.resx">
+      <DependentUpon>SubFormPassCardCurrentAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SubformBase.resx">
+      <DependentUpon>SubformBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemMgmt\FormAnnouncementMgmt.resx">
+      <DependentUpon>FormAnnouncementMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\FormCompanyAccount.resx">
+      <DependentUpon>FormCompanyAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\FormEmployeeAccount.resx">
+      <DependentUpon>FormEmployeeAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\FormUserAccount.resx">
+      <DependentUpon>FormUserAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\FormVipSetting.resx">
+      <DependentUpon>FormVipSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\SubformGaveCommodity.resx">
+      <DependentUpon>SubformGaveCommodity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\SubformVipUrCloudminer.resx">
+      <DependentUpon>SubformVipUrCloudminer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt\SubformVipUrFans.resx">
+      <DependentUpon>SubformVipUrFans.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Log\Log4Net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mgmt.ico" />
+    <Content Include="Properties\mgmt.ico" />
+    <None Include="Resources\imageLoading.jpg" />
+    <None Include="Resources\ImageLoadDefeat.png" />
+    <None Include="Resources\IndexImg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BwBackModel\BwBackModel.csproj">
+      <Project>{c776b76e-e1e8-4e84-a8f0-c29a976c3458}</Project>
+      <Name>BwBackModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BwCommon\BwCommon.csproj">
+      <Project>{c2cbd0be-3a48-4988-920c-51cafd31e21c}</Project>
+      <Name>BwCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BwServerSal\BwServerSal.csproj">
+      <Project>{a8d25538-c70b-4d2f-9de6-4d7a9e47fa72}</Project>
+      <Name>BwServerSal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
