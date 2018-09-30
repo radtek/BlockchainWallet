@@ -124,3 +124,6 @@ F:\Work\BlockchainWallet\BwBackMgmt\obj\Release\全球换个人钱包后台管�
 F:\Work\BlockchainWallet\BwBackMgmt\obj\Release\BwBackMgmt.PassCardMgmt.FormQQL.resources
 F:\Work\BlockchainWallet\BwBackMgmt\obj\Release\BwBackMgmt.PassCardMgmt.FormQQX.resources
 F:\Work\BlockchainWallet\BwBackMgmt\obj\Release\BwBackMgmt.PassCardMgmt.FormQQY.resources
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwBackMgmt\bin\Release\全球换个人钱包后台管理系统.exe.config
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwBackMgmt\obj\Release\全球换个人钱包后台管理系统.exe
+F:\Work\Git\BlockchainWallet\BlockchainWallet\BwBackMgmt\obj\Release\全球换个人钱包后台管理系统.pdb
