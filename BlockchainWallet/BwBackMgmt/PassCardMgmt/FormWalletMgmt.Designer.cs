@@ -477,7 +477,7 @@
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.dnStoreOrder);
             this.Name = "FormWalletMgmt";
-            this.Text = "FormWalletMgmt";
+            this.Text = "钱包管理";
             this.Load += new System.EventHandler(this.Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecord)).EndInit();
