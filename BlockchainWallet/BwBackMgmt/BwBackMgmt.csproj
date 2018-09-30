@@ -258,6 +258,12 @@
     <Compile Include="PassCardMgmt\FormQQY.Designer.cs">
       <DependentUpon>FormQQY.cs</DependentUpon>
     </Compile>
+    <Compile Include="PassCardMgmt\FormWalletMgmt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassCardMgmt\FormWalletMgmt.Designer.cs">
+      <DependentUpon>FormWalletMgmt.cs</DependentUpon>
+    </Compile>
     <Compile Include="PassCardMgmt\SubFormPassCard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -396,6 +402,9 @@
       <DependentUpon>FormQQY.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="PassCardMgmt\FormWalletMgmt.resx">
+      <DependentUpon>FormWalletMgmt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PassCardMgmt\SubFormPassCardCurrentAmount.resx">
       <DependentUpon>SubFormPassCardCurrentAmount.cs</DependentUpon>
     </EmbeddedResource>

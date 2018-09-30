@@ -66,6 +66,7 @@
     <Compile Include="User\UserInfoDal.cs" />
     <Compile Include="User\VipInfoDal.cs" />
     <Compile Include="Wallet\CurrencyInfoDal.cs" />
+    <Compile Include="Wallet\WalletInfoDal_.cs" />
     <Compile Include="Wallet\TransactionInfoDal.cs" />
     <Compile Include="Wallet\WalletInfoDal.cs" />
   </ItemGroup>

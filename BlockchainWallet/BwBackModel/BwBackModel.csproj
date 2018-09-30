@@ -63,6 +63,7 @@
     <Compile Include="UserMgmt\User\VipSettingQueryModel.cs" />
     <Compile Include="WalletMgmt\CurrencyInfoModel.cs" />
     <Compile Include="WalletMgmt\CurrencyPriceRecordModel.cs" />
+    <Compile Include="WalletMgmt\QueryWalletInfoModel.cs" />
     <Compile Include="WalletMgmt\WalletInfoModel.cs" />
   </ItemGroup>
   <ItemGroup />

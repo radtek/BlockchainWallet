@@ -58,6 +58,7 @@
     <Compile Include="ServiceApi\System\AnnouncementApi.cs" />
     <Compile Include="ServiceApi\User\UserInfoApi.cs" />
     <Compile Include="ServiceApi\Wallet\CurrencyInfoApi.cs" />
+    <Compile Include="ServiceApi\Wallet\WalletInfoApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BwBackModel\BwBackModel.csproj">

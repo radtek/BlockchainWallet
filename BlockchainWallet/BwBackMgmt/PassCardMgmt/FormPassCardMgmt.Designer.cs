@@ -52,7 +52,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1150, 86);
+            this.groupControl1.Size = new System.Drawing.Size(1199, 86);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "查询条件";
             // 
@@ -80,7 +80,7 @@
             this.dgvPassCard.Location = new System.Drawing.Point(0, 86);
             this.dgvPassCard.MainView = this.gvPassCard;
             this.dgvPassCard.Name = "dgvPassCard";
-            this.dgvPassCard.Size = new System.Drawing.Size(1150, 547);
+            this.dgvPassCard.Size = new System.Drawing.Size(1199, 564);
             this.dgvPassCard.TabIndex = 11;
             this.dgvPassCard.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPassCard});
@@ -161,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1150, 633);
+            this.ClientSize = new System.Drawing.Size(1199, 650);
             this.Controls.Add(this.dgvPassCard);
             this.Controls.Add(this.groupControl1);
             this.Name = "FormPassCardMgmt";

@@ -122,6 +122,7 @@
     <Compile Include="Controllers\v1\Wallet\CurrencyInfoController.cs" />
     <Compile Include="Controllers\v1\Wallet\CurrencyInfo_Controller.cs" />
     <Compile Include="Controllers\v1\Wallet\WalletInfoController.cs" />
+    <Compile Include="Controllers\v1\Wallet\WalletInfo_Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +168,7 @@
     <Compile Include="Models\v1\Wallet\Currency\CurrencyInfoModel.cs" />
     <Compile Include="Models\v1\Wallet\Currency\CurrencyPriceRecordModel_.cs" />
     <Compile Include="Models\v1\Wallet\Currency\UpdateQqxPriceModel.cs" />
+    <Compile Include="Models\v1\Wallet\WalletInfo\QueryWalletInfoModel_.cs" />
     <Compile Include="Models\v1\Wallet\WalletInfo\WalletInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

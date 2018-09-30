@@ -1,6 +1,0 @@
-F:\Work\BlockchainWallet\TimerTest\bin\Release\TimerTest.exe.config
-F:\Work\BlockchainWallet\TimerTest\bin\Release\TimerTest.exe
-F:\Work\BlockchainWallet\TimerTest\bin\Release\TimerTest.pdb
-F:\Work\BlockchainWallet\TimerTest\obj\Release\TimerTest.exe
-F:\Work\BlockchainWallet\TimerTest\obj\Release\TimerTest.pdb
-F:\Work\BlockchainWallet\TimerTest\obj\Release\TimerTest.csprojResolveAssemblyReference.cache

@@ -8,7 +8,7 @@ namespace BwServerSal
 {
     public static class ApiAddress
     {
-        public static string LocalHost = "http://192.168.1.150:8088";
+        public static string LocalHost = "http://192.168.1.150:8077";
         //public static string LocalHost = "http://149.248.6.45:80";
         //public static string ApiUrlRoot = "http://192.168.1.150:8077/api";
 
@@ -38,6 +38,8 @@ namespace BwServerSal
 
         public static string QueryCurrencyPriceRecord = ApiUrlRoot + "/v1/Wallet/CurrencyInfo_/QueryCurrencyPriceRecord";
         public static string UpdateCurrencyPriceRecord = ApiUrlRoot + "/v1/Wallet/CurrencyInfo_/UpdateCurrencyPriceRecord";
+
+        public static string QueryUserWallet = ApiUrlRoot + "/v1/Wallet/WalletInfo_/QueryUserWallet";
 
         //====================分销相关=================================
         public static string QueryCloudMinerProductionRecord = ApiUrlRoot + "/v1/Agent/CloudMinerProduction_/QueryCloudMinerProductionRecord";

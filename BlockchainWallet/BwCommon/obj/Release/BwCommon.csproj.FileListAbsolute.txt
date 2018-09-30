@@ -1,5 +1,0 @@
-F:\Work\BlockchainWallet\BwCommon\bin\Release\BwCommon.dll
-F:\Work\BlockchainWallet\BwCommon\bin\Release\BwCommon.pdb
-F:\Work\BlockchainWallet\BwCommon\bin\Release\log4net.dll
-F:\Work\BlockchainWallet\BwCommon\obj\Release\BwCommon.dll
-F:\Work\BlockchainWallet\BwCommon\obj\Release\BwCommon.pdb

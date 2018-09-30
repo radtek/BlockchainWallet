@@ -152,6 +152,11 @@ namespace BwBackMgmt
         {
             ShowTabPage<FormQQL>(e.Item.Name);
         }
+
+        private void btnWalletMgmt_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ShowTabPage<FormWalletMgmt>(e.Item.Name);
+        }
         #endregion
 
         #region 订单管理
@@ -206,6 +211,8 @@ namespace BwBackMgmt
                 }
             }
         }
+
+
 
 
 

@@ -1,5 +1,0 @@
-F:\Work\BlockchainWallet\BwSal\bin\Release\BwSal.dll
-F:\Work\BlockchainWallet\BwSal\bin\Release\BwSal.pdb
-F:\Work\BlockchainWallet\BwSal\obj\Release\BwSal.dll
-F:\Work\BlockchainWallet\BwSal\obj\Release\BwSal.pdb
-F:\Work\BlockchainWallet\BwSal\obj\Release\BwSal.csprojResolveAssemblyReference.cache

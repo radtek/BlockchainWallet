@@ -103,7 +103,7 @@
             this.dgvRecord.Location = new System.Drawing.Point(0, 101);
             this.dgvRecord.MainView = this.gvRecord;
             this.dgvRecord.Name = "dgvRecord";
-            this.dgvRecord.Size = new System.Drawing.Size(1327, 442);
+            this.dgvRecord.Size = new System.Drawing.Size(1199, 442);
             this.dgvRecord.TabIndex = 22;
             this.dgvRecord.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvRecord});
@@ -328,7 +328,7 @@
             this.dnStoreOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dnStoreOrder.Location = new System.Drawing.Point(0, 543);
             this.dnStoreOrder.Name = "dnStoreOrder";
-            this.dnStoreOrder.Size = new System.Drawing.Size(1327, 24);
+            this.dnStoreOrder.Size = new System.Drawing.Size(1199, 24);
             this.dnStoreOrder.TabIndex = 23;
             this.dnStoreOrder.TextLocation = DevExpress.XtraEditors.NavigatorButtonsTextLocation.End;
             this.dnStoreOrder.TextStringFormat = "";
@@ -352,7 +352,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1327, 101);
+            this.groupControl1.Size = new System.Drawing.Size(1199, 101);
             this.groupControl1.TabIndex = 21;
             this.groupControl1.Text = "查询条件";
             // 
@@ -465,12 +465,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1327, 567);
+            this.ClientSize = new System.Drawing.Size(1199, 567);
             this.Controls.Add(this.dgvRecord);
             this.Controls.Add(this.dnStoreOrder);
             this.Controls.Add(this.groupControl1);
             this.Name = "FormUserCloudMiner";
-            this.Text = "FormUserCloudMiner";
+            this.Text = "已售云矿机";
             this.Load += new System.EventHandler(this.Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecord)).EndInit();
