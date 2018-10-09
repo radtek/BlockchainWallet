@@ -105,9 +105,9 @@
             new DevExpress.XtraEditors.NavigatorCustomButton(2, 3, true, true, "", "2"),
             new DevExpress.XtraEditors.NavigatorCustomButton(3, 5, true, true, "", "3")});
             this.dnStoreOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dnStoreOrder.Location = new System.Drawing.Point(0, 543);
+            this.dnStoreOrder.Location = new System.Drawing.Point(0, 526);
             this.dnStoreOrder.Name = "dnStoreOrder";
-            this.dnStoreOrder.Size = new System.Drawing.Size(1305, 24);
+            this.dnStoreOrder.Size = new System.Drawing.Size(1325, 24);
             this.dnStoreOrder.TabIndex = 26;
             this.dnStoreOrder.TextLocation = DevExpress.XtraEditors.NavigatorButtonsTextLocation.End;
             this.dnStoreOrder.TextStringFormat = "";
@@ -135,7 +135,7 @@
             this.dgvRecord.Location = new System.Drawing.Point(0, 101);
             this.dgvRecord.MainView = this.gvRecord;
             this.dgvRecord.Name = "dgvRecord";
-            this.dgvRecord.Size = new System.Drawing.Size(1305, 442);
+            this.dgvRecord.Size = new System.Drawing.Size(1325, 425);
             this.dgvRecord.TabIndex = 25;
             this.dgvRecord.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvRecord});
@@ -359,7 +359,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1305, 101);
+            this.groupControl1.Size = new System.Drawing.Size(1325, 101);
             this.groupControl1.TabIndex = 24;
             this.groupControl1.Text = "查询条件";
             // 
@@ -472,7 +472,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1305, 567);
+            this.ClientSize = new System.Drawing.Size(1325, 550);
             this.Controls.Add(this.dgvRecord);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.dnStoreOrder);
