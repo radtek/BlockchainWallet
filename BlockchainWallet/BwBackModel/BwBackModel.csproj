@@ -56,6 +56,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommodityMgmt\CommodityInfoQueryModel.cs" />
     <Compile Include="SystemMgmt\AnnouncementInfoModel.cs" />
+    <Compile Include="CommodityMgmt\RunCloudMinerModel.cs" />
+    <Compile Include="SystemMgmt\SystemMaintenanceModel.cs" />
     <Compile Include="UserMgmt\EmployeeInfo\EmployeeInfoModel.cs" />
     <Compile Include="UserMgmt\Login\LoginModel.cs" />
     <Compile Include="UserMgmt\User\CompanyAccountInfoQueryModel.cs" />

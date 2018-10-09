@@ -11,6 +11,7 @@ using System.Web.Security;
 using BwCommon.Cache;
 using BwCommon.ContentConvert;
 using BwCommon.EncryptionDecryption;
+using BwDal.System;
 using BwServer.Models;
 
 namespace BwServer.Controllers
@@ -23,7 +24,7 @@ namespace BwServer.Controllers
         //重写基类的验证方式，加入我们自定义的Ticket验证
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (CheckServerMaintain)
+            if (SystemMaintenance.CheckServerMaintain)
             {
                 HandleUnauthorizedRequest(actionContext);
                 var attributes = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().OfType<AllowAnonymousAttribute>();
@@ -66,17 +67,12 @@ namespace BwServer.Controllers
             var response = actioncontext.Response = actioncontext.Response ?? new HttpResponseMessage();
             response.StatusCode = HttpStatusCode.OK;
             var content = JsonConvertHelper.ConvertToJson(new ResultDataModel<NullReferenceException>() { Code = 4002, Messages = "登录令牌失效" });
-            if (CheckServerMaintain)
+            if (SystemMaintenance.CheckServerMaintain)
             {
                 content = JsonConvertHelper.ConvertToJson(new ResultDataModel<NullReferenceException>() { Code = 4004, Messages = "服务器正在维护中" });
             }
             //content = AesHelper.AesEncrypt(content, "Jlfc_QQh.2018@11!~^$#GRqB++(())1");
             response.Content = new StringContent(content, Encoding.UTF8, "application/json");
-        }
-
-        private bool CheckServerMaintain
-        {
-            get { return DateTime.Now.Hour == 3 || DateTime.Now.Hour == 4 || DateTime.Now.Hour == 5; }
         }
 
         //校验Token
@@ -92,6 +88,66 @@ namespace BwServer.Controllers
             {
                 return false;
             }
+        }
+
+    }
+
+    public class SystemMaintenance
+    {
+        private static readonly SystemMaintenanceDal_ SystemMaintenanceDal = new SystemMaintenanceDal_();
+        public static IList<SystemMaintenanceModel> SystemMaintenanceModels;
+
+        static SystemMaintenance()
+        {
+
+        }
+
+        public class SystemMaintenanceModel
+        {
+            public DateTime MaintenanceTimeBegin { get; set; }
+            public DateTime MaintenanceTimeEnd { get; set; }
+        }
+
+        public static bool CheckServerMaintain
+        {
+            get
+            {
+                HttpCookieCollection httpCookieCollection = HttpContext.Current.Request.Cookies;
+                try
+                {
+                    if (httpCookieCollection.AllKeys.Contains("UserId"))
+                    {
+                        object userId = httpCookieCollection["UserId"].Value;
+                        if (Convert.ToInt32(userId) == 6 || Convert.ToInt32(userId) == 1)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                if (SystemMaintenanceModels == null) Refresh();
+                return SystemMaintenanceModels.Count(n => n.MaintenanceTimeBegin <= DateTime.Now && n.MaintenanceTimeEnd >= DateTime.Now) > 0;
+            }
+        }
+
+        public static void Add(DateTime maintenanceTimeBegin, DateTime maintenanceTimeEnd)
+        {
+            if (SystemMaintenanceModels == null)
+            {
+                Refresh();
+            }
+            else
+            {
+                SystemMaintenanceModels.Add(new SystemMaintenanceModel { MaintenanceTimeBegin = maintenanceTimeBegin, MaintenanceTimeEnd = maintenanceTimeEnd });
+            }
+        }
+
+        public static void Refresh()
+        {
+            SystemMaintenanceModels = ModelConvertHelper<SystemMaintenanceModel>.ConvertToModel(SystemMaintenanceDal.QuerySystemMaintenance()); ;
         }
 
     }

@@ -107,6 +107,7 @@
     <Compile Include="Controllers\v1\System\AppVersionController.cs" />
     <Compile Include="Controllers\v1\System\BugController.cs" />
     <Compile Include="Controllers\v1\System\PhoneVerificationController.cs" />
+    <Compile Include="Controllers\v1\System\SystemMaintenance_Controller.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionInfo.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionQueue.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionService.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Models\v1\Agent\CloudMinerDistribution\UserCloudMinerDistributionModel_.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerProduct\CloudMinerProductionModel_.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerProduct\UserCloudMinerProductionModel_.cs" />
+    <Compile Include="Models\v1\Commodity\CloudMinerInfo\CheckCloudMinerModel_.cs" />
     <Compile Include="Models\v1\Commodity\CloudMinerInfo\CloudMinerInfoModel.cs" />
     <Compile Include="Models\v1\Commodity\CommodityInfo\BuyQualificationInfoModel.cs" />
     <Compile Include="Models\v1\Commodity\CommodityInfo\CommodityInfoModel.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Models\v1\Employee\EmployeeInfo\EmployeeInfoModel.cs" />
     <Compile Include="Models\v1\System\AnnouncementInfoModel.cs" />
     <Compile Include="Models\v1\System\PhoneVerificationModel.cs" />
+    <Compile Include="Models\v1\System\SystemMaintenanceModel_.cs" />
     <Compile Include="Models\v1\User\Fans\AllFansVipInfoModel.cs" />
     <Compile Include="Models\v1\User\Fans\FansGenerationCountModel.cs" />
     <Compile Include="Models\v1\User\Fans\FansModel.cs" />

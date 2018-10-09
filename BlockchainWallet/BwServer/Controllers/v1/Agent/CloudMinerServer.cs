@@ -32,55 +32,78 @@ namespace BwServer.Controllers.v1.Agent
             get { return _cloudMinerServer ?? (_cloudMinerServer = new CloudMinerServer()); }
         }
         #endregion
-
+        /// <summary>
+        /// 矿机运行状态 ：0 未运行 1 矿机运行中   2 正常结束  其他 错误异常信息
+        /// </summary>
+        public string State = "0";
         private readonly CloudMinerDal _cloudMinerDal = new CloudMinerDal();
         private readonly UserCloudMinerDal _userCloudMinerDal = new UserCloudMinerDal();
         private readonly CloudMinerDistributionMechanismDal _cloudMinerDistributionMechanismDal = new CloudMinerDistributionMechanismDal();
         private readonly CloudMinerProductionDal_ _cloudMinerProductionDal = new CloudMinerProductionDal_();
         private readonly VipInfoDal _vipInfoDal = new VipInfoDal();
         private readonly FansDal _fansDal = new FansDal();
-        private Timer _timer = null;
+        //private Timer _timer = null;
         private static readonly object _objLock = new object();
-        private static bool _runState = false;
-        public void StartListenServer()
+
+        //private static bool _runState = false;
+        //public void StartListenServer()
+        //{
+        //    if (_timer != null) return;
+        //    _timer = new Timer();
+        //    _timer.Interval = 3000;
+        //    _timer.Elapsed += (sender, e) =>
+        //    {
+        //        DateTime dtDateTime = DateTime.Now;
+        //        _timer.Interval = 3000;
+        //        if (dtDateTime.Hour == 3 && dtDateTime.Minute == 0 && dtDateTime.Second > 1 &&
+        //            dtDateTime.Second < 5)
+        //        {
+        //            lock (_objLock)
+        //            {
+        //                if (_runState)
+        //                {
+        //                    return;
+        //                }
+        //                _runState = true;
+        //                _timer.Interval = (DateTime.Now.AddDays(1) - DateTime.Now).TotalMilliseconds - 30 * 60 * 1000;
+        //            }
+        //            LogHelper.info("矿机开始运行:" + dtDateTime.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
+        //            try
+        //            {
+        //                RunCloudMinerServer();
+        //            }
+        //            catch (Exception exception)
+        //            {
+        //                LogHelper.error("矿机运行时出现未知错误：" + exception.Message);
+        //            }
+        //            _runState = false;
+        //            LogHelper.info("矿机结束运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
+        //        }
+        //    };
+        //    _timer.Enabled = true;
+        //    _timer.AutoReset = true;
+        //    _timer.Start();
+        //    LogHelper.info("开启矿机服务：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        //}
+
+        public async void StartListenServer()
         {
-            if (_timer != null) return;
-            _timer = new Timer();
-            _timer.Interval = 3000;
-            _timer.Elapsed += (sender, e) =>
+            LogHelper.info("矿机开始运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
+            try
             {
-                DateTime dtDateTime = DateTime.Now;
-                _timer.Interval = 3000;
-                if (dtDateTime.Hour == 3 && dtDateTime.Minute == 0 && dtDateTime.Second > 1 &&
-                    dtDateTime.Second < 5)
-                {
-                    lock (_objLock)
-                    {
-                        if (_runState)
-                        {
-                            return;
-                        }
-                        _runState = true;
-                        _timer.Interval = (DateTime.Now.AddDays(1) - DateTime.Now).TotalMilliseconds - 30 * 60 * 1000;
-                    }
-                    LogHelper.info("矿机开始运行:" + dtDateTime.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
-                    try
-                    {
-                        RunCloudMinerServer();
-                    }
-                    catch (Exception exception)
-                    {
-                        LogHelper.error("矿机运行时出现未知错误：" + exception.Message);
-                    }
-                    _runState = false;
-                    LogHelper.info("矿机结束运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
-                }
-            };
-            _timer.Enabled = true;
-            _timer.AutoReset = true;
-            _timer.Start();
-            LogHelper.info("开启矿机服务：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                State = "1";
+                await Task.Factory.StartNew(RunCloudMinerServer);
+                State = "2";
+            }
+            catch (Exception e)
+            {
+                LogHelper.error(e.Message);
+                State = e.Message;
+            }
+
+            LogHelper.info("矿机结束运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
         }
+
         /// <summary>
         /// 矿机产币和分润 
         /// </summary>

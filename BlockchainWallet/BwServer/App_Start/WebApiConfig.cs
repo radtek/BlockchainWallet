@@ -73,8 +73,8 @@ namespace BwServer
                 TransactionServerRun = true;
                 LogHelper.info("TransactionServerRun...");
                 TransactionSystem.Single.RunTransactionServer(1);
-                LogHelper.info("StartListenServer...");
-                CloudMinerServer.Single.StartListenServer();
+                //LogHelper.info("StartListenServer...");
+                //CloudMinerServer.Single.StartListenServer();
             }
         }
     }

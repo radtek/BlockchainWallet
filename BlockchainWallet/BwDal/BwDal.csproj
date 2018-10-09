@@ -61,6 +61,7 @@
     <Compile Include="System\AnnouncementInfoDal.cs" />
     <Compile Include="System\AppVersionDal.cs" />
     <Compile Include="System\BugDal.cs" />
+    <Compile Include="System\SystemMaintenanceDal.cs" />
     <Compile Include="User\CompanyAccountInfoDal.cs" />
     <Compile Include="User\FansDal.cs" />
     <Compile Include="User\UserInfoDal.cs" />

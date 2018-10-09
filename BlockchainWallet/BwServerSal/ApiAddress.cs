@@ -8,8 +8,8 @@ namespace BwServerSal
 {
     public static class ApiAddress
     {
-        //public static string LocalHost = "http://192.168.1.150:8077";
-        public static string LocalHost = "http://149.248.6.45:80";
+        public static string LocalHost = "http://192.168.1.150:8077";
+        //public static string LocalHost = "http://149.248.6.45:80";
         //public static string ApiUrlRoot = "http://192.168.1.150:8077/api";
 
         public static string ApiUrlRoot = LocalHost + "/api";
@@ -47,11 +47,13 @@ namespace BwServerSal
         public static string QueryCloudMinerDistributionRecord = ApiUrlRoot + "/v1/Agent/CloudMinerDistribution_/QueryCloudMinerDistributionRecord";
         public static string QueryUserCloudMinerDistributionRecord = ApiUrlRoot + "/v1/Agent/CloudMinerDistribution_/QueryUserCloudMinerDistributionRecord";
 
-
-
         //====================商品相关=================================
         public static string QueryCommodityInfo = ApiUrlRoot + "/v1/Commodity/CommodityInfo/QueryCommodityInfo";
         public static string QueryCloudMiner = ApiUrlRoot + "/v1/Commodity/CloudMiner_/QueryCloudMiner";
+
+        public static string RunCloudMiner = ApiUrlRoot + "/v1/Commodity/CloudMiner_/RunCloudMiner";
+        public static string CheckCloudMiner = ApiUrlRoot + "/v1/Commodity/CloudMiner_/CheckCloudMiner";
+
         public static string GaveCommodityStoreOrder = ApiUrlRoot + "/v1/Commodity/StoreOrder_/GaveCommodityStoreOrder";
         public static string QueryStoreOrder = ApiUrlRoot + "/v1/Commodity/StoreOrder_/QueryStoreOrder";
         public static string QueryGaveCommodityStoreOrder = ApiUrlRoot + "/v1/Commodity/StoreOrder_/QueryGaveCommodityStoreOrder";
@@ -59,6 +61,10 @@ namespace BwServerSal
 
         public static string QueryUserCloudMiner = ApiUrlRoot + "/v1/Commodity/UserCloudMiner_/QueryUserCloudMiner";
 
+        //====================维护相关=================================
+        public static string QuerySystemMaintenanceRecord = ApiUrlRoot + "/v1/System/SystemMaintenance_/QuerySystemMaintenanceRecord";
+        public static string InsertSystemMaintenanceRecord = ApiUrlRoot + "/v1/System/SystemMaintenance_/InsertSystemMaintenanceRecord";
+        public static string UpdateSystemMaintenanceRecord = ApiUrlRoot + "/v1/System/SystemMaintenance_/UpdateSystemMaintenanceRecord";
 
 
         //====================公告相关=================================
