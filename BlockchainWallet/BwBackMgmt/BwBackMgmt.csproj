@@ -105,7 +105,9 @@
       <HintPath>..\BwCommon\bin\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -290,6 +292,18 @@
     <Compile Include="SystemMgmt\FormAnnouncementMgmt.Designer.cs">
       <DependentUpon>FormAnnouncementMgmt.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemMgmt\FormSystemMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemMgmt\FormSystemMaintenance.Designer.cs">
+      <DependentUpon>FormSystemMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemMgmt\SubformSystemMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemMgmt\SubformSystemMaintenance.Designer.cs">
+      <DependentUpon>SubformSystemMaintenance.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserMgmt\FormCompanyAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +437,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SystemMgmt\FormAnnouncementMgmt.resx">
       <DependentUpon>FormAnnouncementMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemMgmt\FormSystemMaintenance.resx">
+      <DependentUpon>FormSystemMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemMgmt\SubformSystemMaintenance.resx">
+      <DependentUpon>SubformSystemMaintenance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserMgmt\FormCompanyAccount.resx">
       <DependentUpon>FormCompanyAccount.cs</DependentUpon>

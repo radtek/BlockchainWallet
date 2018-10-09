@@ -66,6 +66,7 @@
             this.btnUserCloudMiner = new DevExpress.XtraBars.BarButtonItem();
             this.btnUserCloudMinerProductionOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnUserDistributionOrder = new DevExpress.XtraBars.BarButtonItem();
+            this.btnWalletMgmt = new DevExpress.XtraBars.BarButtonItem();
             this.rpgUserMgmt = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpAgentMgmt = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -88,7 +89,7 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage4 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.tcMain = new DevExpress.XtraTab.XtraTabControl();
-            this.btnWalletMgmt = new DevExpress.XtraBars.BarButtonItem();
+            this.btnSystemMaintenance = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcMain)).BeginInit();
             this.SuspendLayout();
@@ -134,9 +135,10 @@
             this.btnUserCloudMiner,
             this.btnUserCloudMinerProductionOrder,
             this.btnUserDistributionOrder,
-            this.btnWalletMgmt});
+            this.btnWalletMgmt,
+            this.btnSystemMaintenance});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 33;
+            this.ribbonControl1.MaxItemId = 34;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.PageHeaderItemLinks.Add(this.btnAboutUs);
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -250,8 +252,8 @@
             // 
             this.钱包管理.Caption = "新增";
             this.钱包管理.Id = 7;
-            this.钱包管理.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.ImageOptions.Image")));
-            this.钱包管理.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.ImageOptions.LargeImage")));
+            this.钱包管理.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("钱包管理.ImageOptions.Image")));
+            this.钱包管理.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("钱包管理.ImageOptions.LargeImage")));
             this.钱包管理.Name = "钱包管理";
             // 
             // barButtonItem7
@@ -452,6 +454,15 @@
             this.btnUserDistributionOrder.Name = "btnUserDistributionOrder";
             this.btnUserDistributionOrder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUserDistributionOrder_ItemClick);
             // 
+            // btnWalletMgmt
+            // 
+            this.btnWalletMgmt.Caption = "钱包管理";
+            this.btnWalletMgmt.Id = 32;
+            this.btnWalletMgmt.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnWalletMgmt.ImageOptions.Image")));
+            this.btnWalletMgmt.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnWalletMgmt.ImageOptions.LargeImage")));
+            this.btnWalletMgmt.Name = "btnWalletMgmt";
+            this.btnWalletMgmt.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnWalletMgmt_ItemClick);
+            // 
             // rpgUserMgmt
             // 
             this.rpgUserMgmt.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -572,6 +583,7 @@
             // ribbonPageGroup5
             // 
             this.ribbonPageGroup5.ItemLinks.Add(this.btnAnnouncementMgmt);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnSystemMaintenance);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             this.ribbonPageGroup5.Text = "系统管理";
             // 
@@ -612,14 +624,14 @@
             this.tcMain.TabIndex = 3;
             this.tcMain.CloseButtonClick += new System.EventHandler(this.tcMain_CloseButtonClick);
             // 
-            // btnWalletMgmt
+            // btnSystemMaintenance
             // 
-            this.btnWalletMgmt.Caption = "钱包管理";
-            this.btnWalletMgmt.Id = 32;
-            this.btnWalletMgmt.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnWalletMgmt.ImageOptions.Image")));
-            this.btnWalletMgmt.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnWalletMgmt.ImageOptions.LargeImage")));
-            this.btnWalletMgmt.Name = "btnWalletMgmt";
-            this.btnWalletMgmt.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnWalletMgmt_ItemClick);
+            this.btnSystemMaintenance.Caption = "系统维护";
+            this.btnSystemMaintenance.Id = 33;
+            this.btnSystemMaintenance.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.ImageOptions.Image")));
+            this.btnSystemMaintenance.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.ImageOptions.LargeImage")));
+            this.btnSystemMaintenance.Name = "btnSystemMaintenance";
+            this.btnSystemMaintenance.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSystemMaintenance_ItemClick);
             // 
             // MainForm
             // 
@@ -709,6 +721,7 @@
         private DevExpress.XtraBars.BarButtonItem btnUserCloudMinerProductionOrder;
         private DevExpress.XtraBars.BarButtonItem btnUserDistributionOrder;
         private DevExpress.XtraBars.BarButtonItem btnWalletMgmt;
+        private DevExpress.XtraBars.BarButtonItem btnSystemMaintenance;
 
     }
 }

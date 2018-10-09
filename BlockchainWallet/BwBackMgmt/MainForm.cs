@@ -196,6 +196,10 @@ namespace BwBackMgmt
         {
             ShowTabPage<FormAnnouncementMgmt>(e.Item.Name);
         }
+        private void btnSystemMaintenance_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ShowTabPage<FormSystemMaintenance>(e.Item.Name);
+        }
         #endregion
 
         private void tcMain_CloseButtonClick(object sender, EventArgs e)
@@ -211,19 +215,6 @@ namespace BwBackMgmt
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

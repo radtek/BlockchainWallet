@@ -74,7 +74,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(881, 45);
+            this.panelControl1.Size = new System.Drawing.Size(849, 45);
             this.panelControl1.TabIndex = 2;
             // 
             // txtTitel
@@ -86,7 +86,7 @@
             this.txtTitel.Properties.NullValuePrompt = "请输入文章标题";
             this.txtTitel.Properties.NullValuePromptShowForEmptyValue = true;
             this.txtTitel.Properties.ReadOnly = true;
-            this.txtTitel.Size = new System.Drawing.Size(842, 20);
+            this.txtTitel.Size = new System.Drawing.Size(810, 20);
             this.txtTitel.TabIndex = 0;
             // 
             // panelControl3
@@ -98,7 +98,7 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(456, 0);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(881, 692);
+            this.panelControl3.Size = new System.Drawing.Size(849, 650);
             this.panelControl3.TabIndex = 4;
             // 
             // panelControl2
@@ -108,9 +108,9 @@
             this.panelControl2.Controls.Add(this.labelControl1);
             this.panelControl2.Controls.Add(this.btnSave);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(0, 641);
+            this.panelControl2.Location = new System.Drawing.Point(0, 599);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(881, 51);
+            this.panelControl2.Size = new System.Drawing.Size(849, 51);
             this.panelControl2.TabIndex = 4;
             // 
             // dtPublishTime
@@ -142,7 +142,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(786, 18);
+            this.btnSave.Location = new System.Drawing.Point(754, 18);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -159,7 +159,7 @@
             this.txtContent.Properties.NullValuePrompt = "请输入文章内容";
             this.txtContent.Properties.NullValuePromptShowForEmptyValue = true;
             this.txtContent.Properties.ReadOnly = true;
-            this.txtContent.Size = new System.Drawing.Size(842, 568);
+            this.txtContent.Size = new System.Drawing.Size(810, 526);
             this.txtContent.TabIndex = 3;
             // 
             // panelControl4
@@ -170,7 +170,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(456, 692);
+            this.panelControl4.Size = new System.Drawing.Size(456, 650);
             this.panelControl4.TabIndex = 5;
             // 
             // dgvAnnouncementInfo
@@ -179,7 +179,7 @@
             this.dgvAnnouncementInfo.Location = new System.Drawing.Point(0, 45);
             this.dgvAnnouncementInfo.MainView = this.gvAnnouncementInfo;
             this.dgvAnnouncementInfo.Name = "dgvAnnouncementInfo";
-            this.dgvAnnouncementInfo.Size = new System.Drawing.Size(456, 647);
+            this.dgvAnnouncementInfo.Size = new System.Drawing.Size(456, 605);
             this.dgvAnnouncementInfo.TabIndex = 2;
             this.dgvAnnouncementInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvAnnouncementInfo});
@@ -297,7 +297,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1337, 692);
+            this.ClientSize = new System.Drawing.Size(1305, 650);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.panelControl4);
             this.Name = "FormAnnouncementMgmt";
