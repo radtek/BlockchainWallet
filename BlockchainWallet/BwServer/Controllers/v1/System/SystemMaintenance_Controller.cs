@@ -32,7 +32,7 @@ namespace BwServer.Controllers.v1.System
                 Convert.ToDateTime(modelGet.MaintenanceTimeBegin);
                 Convert.ToDateTime(modelGet.MaintenanceTimeEnd);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return Json(new ResultDataModel<IList<SystemMaintenanceModelResult_>> { Code = -1, Messages = "请求参数有误" });
             }

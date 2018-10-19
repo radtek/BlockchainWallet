@@ -10,7 +10,6 @@ namespace TimerTest
 {
     class Program
     {
-        public static object _objLock = new object();
         static void Main(string[] args)
         {
         }

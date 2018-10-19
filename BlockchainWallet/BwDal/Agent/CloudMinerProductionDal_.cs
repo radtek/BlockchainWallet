@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using BwCommon.Log;
 using BwDal.Helper;
+using BwDal.Transaction;
 using BwDal.Wallet;
 using MySql.Data.MySqlClient;
 using MySqlHelper = BwDal.Helper.MySqlHelper;
@@ -21,7 +22,7 @@ namespace BwDal.Agent
         /// <param name="productionCount"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public int InsertCloudMinerProductionRecord(int ucmId, int commodityId, int userId, List<TransactionInfoDal.BorrowInfoEntity> borrowInfoEntities, int productionCount)
+        public int InsertCloudMinerProductionRecord(int ucmId, int commodityId, int userId, List<TransactionServerDal.PayCurrencyEntity> borrowInfoEntities, int productionCount)
         {
             using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
             {

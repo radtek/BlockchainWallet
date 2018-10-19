@@ -232,7 +232,7 @@ namespace BwServer.Controllers.v1.Commodity
                     }
                 }
 
-                bool b = TransactionService.AddStoreOrder(payDetailModelGet);
+                bool b = TransactionService.AddStoreOrder(payDetailModelGet, null);
                 return Json(new ResultDataModel<StoreOrderModelResult> { Code = b ? 0 : -1, Messages = "" });
             }
             catch (Exception)
@@ -304,15 +304,21 @@ namespace BwServer.Controllers.v1.Commodity
                 payDetailModelGet.OrderNo = Convert.ToString(dt.Rows[0]["OrderNo"]);
                 payDetailModelGet.UserId = Convert.ToInt32(dt.Rows[0]["BuyUserId"]);
                 payDetailModelGet.PayDetailModels.Add(new StoreOrderPayDetailModel { CurrencyId = 0, OrderNo = payDetailModelGet.OrderNo, Amount = Convert.ToDecimal(dt.Rows[0]["TotalPrice"]) });
-                bool b = TransactionService.AddStoreOrder(payDetailModelGet);
-                return Json(new ResultDataModel<StoreOrderModelResult> { Code = b ? 0 : -1, Messages = "" });
+                CountdownEvent countdownEvent = new CountdownEvent(1);
+                bool b = TransactionService.AddStoreOrder(payDetailModelGet, countdownEvent);
+                if (!b)
+                {
+                    return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4001, Messages = "服务器内部出现错误" });
+                }
+                countdownEvent.Wait();
+                string state = _storeOrderDal.CheckStoreOrderState(modelGet.OrderId);
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = state == "1" ? 0 : -1, Messages = state == "1" ? "" : "审核失败" });
             }
             catch (Exception)
             {
                 return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4001, Messages = "服务器内部出现错误" });
             }
         }
-
 
         public IHttpActionResult CheckStoreOrderPayState(PayDetailModelGet payDetailModelGet)
         {

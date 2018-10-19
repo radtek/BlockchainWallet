@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BwCommon.Log;
+using BwDal.Transaction;
 using BwDal.Wallet;
 using MySql.Data.MySqlClient;
 using MySqlHelper = BwDal.Helper.MySqlHelper;
@@ -32,7 +33,7 @@ namespace BwDal.DistributionMechanism
         /// <param name="userId"></param>
         /// <param name="borrowInfoEntities"></param>
         /// <returns></returns>
-        public int InsertCloudMinerDistributionRecord(int ucmId, int commodityId, int userId, List<TransactionInfoDal.BorrowInfoEntity> borrowInfoEntities)
+        public int InsertCloudMinerDistributionRecord(int ucmId, int commodityId, int userId, List<TransactionServerDal.PayCurrencyEntity> borrowInfoEntities)
         {
             using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
             {

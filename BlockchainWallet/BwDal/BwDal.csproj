@@ -62,13 +62,14 @@
     <Compile Include="System\AppVersionDal.cs" />
     <Compile Include="System\BugDal.cs" />
     <Compile Include="System\SystemMaintenanceDal.cs" />
+    <Compile Include="Transaction\TransactionInfoDal.cs" />
     <Compile Include="User\CompanyAccountInfoDal.cs" />
     <Compile Include="User\FansDal.cs" />
     <Compile Include="User\UserInfoDal.cs" />
     <Compile Include="User\VipInfoDal.cs" />
     <Compile Include="Wallet\CurrencyInfoDal.cs" />
     <Compile Include="Wallet\WalletInfoDal_.cs" />
-    <Compile Include="Wallet\TransactionInfoDal.cs" />
+    <Compile Include="Transaction\TransactionServerDal.cs" />
     <Compile Include="Wallet\WalletInfoDal.cs" />
   </ItemGroup>
   <ItemGroup>

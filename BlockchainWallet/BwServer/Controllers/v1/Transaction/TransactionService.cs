@@ -6,6 +6,7 @@ using System.Threading;
 using BwCommon.Log;
 using BwDal.Agent;
 using BwDal.Commodity;
+using BwDal.Transaction;
 using BwDal.User;
 using BwServer.Models.v1.Commodity.StoreOrder;
 
@@ -21,12 +22,17 @@ namespace BwServer.Controllers.v1.Transaction
         private static readonly UserCloudMinerDal UserCloudMinerDal = new UserCloudMinerDal();
         private static readonly UserInfoDal UserInfoDal = new UserInfoDal();
         private static readonly VipInfoDal VipInfoDal = new VipInfoDal();
+        private static readonly CloudMinerProductionDal_ CloudMinerProductionDal = new CloudMinerProductionDal_();
+        private static readonly TransactionInfoDal TransactionInfoDal = new TransactionInfoDal();
+
+
         /// <summary>
         /// 添加商城自营交易
         /// </summary>
         /// <param name="payDetailModelGet"></param>
+        /// <param name="countdownEvent"></param>
         /// <returns></returns>
-        public static bool AddStoreOrder(PayDetailModelGet payDetailModelGet)
+        public static bool AddStoreOrder(PayDetailModelGet payDetailModelGet, CountdownEvent countdownEvent)
         {
             try
             {
@@ -72,7 +78,6 @@ namespace BwServer.Controllers.v1.Transaction
                             DataTable dtVipUrCloudminerInfo = VipInfoDal.QueryVipUrCloudminerUpgrade(commodityId);
                             if (dtVipUrCloudminerInfo.Rows.Count <= 0) return;
                             int commodityUrRank = Convert.ToInt32(dtVipUrCloudminerInfo.Rows[0]["Rank"]);
-
                             if (userRank < commodityUrRank)
                             {
                                 int commodityUrVipId = Convert.ToInt32(dtVipUrCloudminerInfo.Rows[0]["Id"]);
@@ -80,15 +85,19 @@ namespace BwServer.Controllers.v1.Transaction
                             }
                         }
                     }
+                    if (countdownEvent != null)
+                    {
+                        countdownEvent.Signal();
+                    }
                 };
 
                 foreach (var item in payDetailModelGet.PayDetailModels)
                 {
-                    LoansTransaction loansTransaction = new LoansTransaction();
+                    TransactionPayDetail loansTransaction = new TransactionPayDetail();
                     loansTransaction.CurrencyId = item.CurrencyId;
                     loansTransaction.Amount = item.Amount;
                     transactionInfo.LoansTransactions.Add(loansTransaction);
-                    BorrowTransaction borrowTransaction = new BorrowTransaction();
+                    TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                     borrowTransaction.CurrencyId = item.CurrencyId;
                     borrowTransaction.Amount = item.Amount;
                     transactionInfo.BorrowTransactions.Add(borrowTransaction);
@@ -107,11 +116,51 @@ namespace BwServer.Controllers.v1.Transaction
             }
         }
 
-        private static readonly CloudMinerProductionDal_ CloudMinerProductionDal = new CloudMinerProductionDal_();
+        /// <summary>
+        /// 添加个人向个人转账订单
+        /// </summary>
+        public static bool AddTransactionP2P(string type, int payUserId, int payeeUserId, int orderId, List<TransactionPayDetail> borrowTransactions)
+        {
+            TransactionInfo transactionInfo = new TransactionInfo();
+            transactionInfo.No = GetTransactionNo(type, payUserId);
+            transactionInfo.Type = type;
+            transactionInfo.PayUserId = payUserId;
+            transactionInfo.PayeeUserId = payeeUserId;
+            transactionInfo.OrderId = orderId;
+
+            //借方进账明细
+            foreach (var item in borrowTransactions)
+            {
+                TransactionPayDetail borrowTransaction = new TransactionPayDetail();
+                borrowTransaction.Amount = item.Amount;
+                borrowTransaction.CurrencyId = item.CurrencyId;
+                transactionInfo.BorrowTransactions.Add(borrowTransaction);
+            }
+            //贷方支付明细
+            foreach (var borrowTransaction in borrowTransactions)
+            {
+                TransactionPayDetail loansTransaction = new TransactionPayDetail();
+                loansTransaction.Amount = borrowTransaction.Amount;
+                loansTransaction.CurrencyId = borrowTransaction.CurrencyId;
+                transactionInfo.LoansTransactions.Add(loansTransaction);
+            }
+
+            transactionInfo.ExectionedAction = state =>
+            {
+                TransactionInfoDal.UpdateTransactionP2P(orderId, state);
+            };
+            while (true)
+            {
+                if (TransactionQueue.AddQueue(transactionInfo)) break;
+                Thread.Sleep(100);
+            }
+            return true;
+        }
+
         /// <summary>
         /// 添加矿机运行个人产币拨款
         /// </summary>
-        public static bool AddCloudMinerProduce(string type, int userId, int orderId, List<BorrowTransaction> borrowTransactions)
+        public static bool AddCloudMinerProduce(string type, int userId, int orderId, List<TransactionPayDetail> borrowTransactions)
         {
             TransactionInfo transactionInfo = new TransactionInfo();
             transactionInfo.No = GetTransactionNo(type, userId);
@@ -123,7 +172,7 @@ namespace BwServer.Controllers.v1.Transaction
             //借方进账明细
             foreach (var item in borrowTransactions)
             {
-                BorrowTransaction borrowTransaction = new BorrowTransaction();
+                TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                 borrowTransaction.Amount = item.Amount;
                 borrowTransaction.CurrencyId = item.CurrencyId;
                 transactionInfo.BorrowTransactions.Add(borrowTransaction);
@@ -131,7 +180,7 @@ namespace BwServer.Controllers.v1.Transaction
             //贷方支付明细
             foreach (var borrowTransaction in borrowTransactions)
             {
-                LoansTransaction loansTransaction = new LoansTransaction();
+                TransactionPayDetail loansTransaction = new TransactionPayDetail();
                 loansTransaction.Amount = borrowTransaction.Amount;
                 loansTransaction.CurrencyId = borrowTransaction.CurrencyId;
                 //loansTransaction.LoansUserId = 2;
@@ -154,7 +203,8 @@ namespace BwServer.Controllers.v1.Transaction
         /// 添加矿机运行分销拨款
         /// </summary>
         /// <param name="type"></param>
-        public static bool AddCloudMinerProduceDistribution(string type, int userId, int orderId, List<BorrowTransaction> borrowTransactions)
+        /// <param name="borrowTransactions"></param>
+        public static bool AddCloudMinerProduceDistribution(string type, int userId, int orderId, List<TransactionPayDetail> borrowTransactions)
         {
             TransactionInfo transactionInfo = new TransactionInfo();
             transactionInfo.No = GetTransactionNo(type, userId);
@@ -165,7 +215,7 @@ namespace BwServer.Controllers.v1.Transaction
             //借方进账明细
             foreach (var item in borrowTransactions)
             {
-                BorrowTransaction borrowTransaction = new BorrowTransaction();
+                TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                 borrowTransaction.Amount = item.Amount;
                 borrowTransaction.CurrencyId = item.CurrencyId;
                 transactionInfo.BorrowTransactions.Add(borrowTransaction);
@@ -173,7 +223,7 @@ namespace BwServer.Controllers.v1.Transaction
             //贷方支付明细
             foreach (var borrowTransaction in borrowTransactions)
             {
-                LoansTransaction loansTransaction = new LoansTransaction();
+                TransactionPayDetail loansTransaction = new TransactionPayDetail();
                 loansTransaction.Amount = borrowTransaction.Amount;
                 loansTransaction.CurrencyId = borrowTransaction.CurrencyId;
                 //loansTransaction.LoansUserId = 3;

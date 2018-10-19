@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using BwCommon.Log;
+using BwDal.Transaction;
 using BwDal.Wallet;
 
 namespace BwServer.Controllers.v1.Transaction
@@ -30,7 +31,7 @@ namespace BwServer.Controllers.v1.Transaction
 
         private readonly TransactionQueue _transactionQueue = new TransactionQueue();
         private bool _isRun = false;
-        private TransactionInfoDal _transactionInfoDal = new TransactionInfoDal();
+        private readonly TransactionServerDal _transactionServerDal = new TransactionServerDal();
         /// <summary>
         /// 开始运行交易服务
         /// </summary>
@@ -59,23 +60,23 @@ namespace BwServer.Controllers.v1.Transaction
                         Thread.Sleep(100);
                         continue;
                     }
-                    List<TransactionInfoDal.BorrowInfoEntity> borrowInfoList = new List<TransactionInfoDal.BorrowInfoEntity>();
-                    List<TransactionInfoDal.LoansInfoEntity> loansInfoEntities = new List<TransactionInfoDal.LoansInfoEntity>();
+                    List<TransactionServerDal.PayCurrencyEntity> borrowInfoList = new List<TransactionServerDal.PayCurrencyEntity>();
+                    List<TransactionServerDal.PayCurrencyEntity> loansInfoEntities = new List<TransactionServerDal.PayCurrencyEntity>();
                     foreach (var borrowTransaction in transactionInfo.BorrowTransactions)
                     {
-                        TransactionInfoDal.BorrowInfoEntity borrowInfoEntity = new TransactionInfoDal.BorrowInfoEntity();
+                        TransactionServerDal.PayCurrencyEntity borrowInfoEntity = new TransactionServerDal.PayCurrencyEntity();
                         borrowInfoEntity.CurrencyId = borrowTransaction.CurrencyId;
                         borrowInfoEntity.Amount = borrowTransaction.Amount;
                         borrowInfoList.Add(borrowInfoEntity);
                     }
                     foreach (var loansTransaction in transactionInfo.LoansTransactions)
                     {
-                        TransactionInfoDal.LoansInfoEntity loansInfoEntity = new TransactionInfoDal.LoansInfoEntity();
+                        TransactionServerDal.PayCurrencyEntity loansInfoEntity = new TransactionServerDal.PayCurrencyEntity();
                         loansInfoEntity.CurrencyId = loansTransaction.CurrencyId;
                         loansInfoEntity.Amount = loansTransaction.Amount;
                         loansInfoEntities.Add(loansInfoEntity);
                     }
-                    string transactioned = _transactionInfoDal.RunTransaction(transactionInfo.No, transactionInfo.OrderId, transactionInfo.PayUserId,
+                    string transactioned = _transactionServerDal.RunTransaction(transactionInfo.No, transactionInfo.OrderId, transactionInfo.PayUserId,
                         transactionInfo.PayeeUserId, borrowInfoList, loansInfoEntities, transactionInfo.Type);
                     //LogHelper.info("交易记录:" + transactionInfo.OrderId + "                     交易结果：" + transactioned);
                     transactionInfo.ExectionedAction(transactioned);

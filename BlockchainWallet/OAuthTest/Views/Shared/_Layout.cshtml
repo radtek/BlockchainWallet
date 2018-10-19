@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script>
+        function GetTicket(parameters) {
+            $.ajax({
+                async: false,
+                type: 'post',
+                url: 'ProjectCreate',
+                loading: '正在添加数据...',
+                data: {
+                    PId: $('#lbPId').val(),
+                    Name: $('#txtModalProjectName').val(),
+                    Remark: $('#txtModalRemark').val()
+                },
+                success: function(result) {
+                    if (result !== '0') {
+                        $('#tProjectInfo').bootstrapTable('insertRow',
+                            {
+                                index: 0,
+                                row: {
+                                    PId: result.PId,
+                                    Name: $('#txtModalProjectName').val(),
+                                    Remark: $('#txtModalRemark').val(),
+                                    PublishDate: result.PublishDate,
+                                    PublishUserName: result.PublishUserName,
+                                    NewestVersion: null
+                                }
+                            });
+                        $('#projectInfoModal').modal('hide');
+                        toastr.success('添加成功');
+                    } else {
+                        toastr.error('添加失败');
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="userTicket" type="text" />
+        <input id="btnGetTicket" type="button" value="申请服务器授权" onclick="GetTicket()" />
+        <input id="txtTicket" type="text" />
+        <input id="btn" type="button" value="获取资源" />
+        <input id="txtRes" type="text" />
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

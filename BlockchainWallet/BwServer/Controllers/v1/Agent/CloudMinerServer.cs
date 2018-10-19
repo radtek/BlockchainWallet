@@ -10,6 +10,7 @@ using BwCommon.Log;
 using BwDal.Agent;
 using BwDal.Commodity;
 using BwDal.DistributionMechanism;
+using BwDal.Transaction;
 using BwDal.User;
 using BwDal.Wallet;
 using BwServer.Controllers.v1.Transaction;
@@ -93,7 +94,6 @@ namespace BwServer.Controllers.v1.Agent
             {
                 State = "1";
                 await Task.Factory.StartNew(RunCloudMinerServer);
-                State = "2";
             }
             catch (Exception e)
             {
@@ -129,10 +129,10 @@ namespace BwServer.Controllers.v1.Agent
             DataTable dtDistributionMechanism = _cloudMinerDistributionMechanismDal.QueryDistributionMechanism();
             IList<DistributionMechanismCloudMinerModel> distributionMechanismCloudMinerModels = ModelConvertHelper<DistributionMechanismCloudMinerModel>.ConvertToModel(dtDistributionMechanism);
             //收款信息
-            List<BorrowTransaction> borrowTransactions = new List<BorrowTransaction>();
-            List<TransactionInfoDal.BorrowInfoEntity> borrowInfoEntities = new List<TransactionInfoDal.BorrowInfoEntity>();
-            List<BorrowTransaction> dBorrowTransactions = new List<BorrowTransaction>();
-            List<TransactionInfoDal.BorrowInfoEntity> dBorrowInfoEntities = new List<TransactionInfoDal.BorrowInfoEntity>();
+            List<TransactionPayDetail> borrowTransactions = new List<TransactionPayDetail>();
+            List<TransactionServerDal.PayCurrencyEntity> borrowInfoEntities = new List<TransactionServerDal.PayCurrencyEntity>();
+            List<TransactionPayDetail> dBorrowTransactions = new List<TransactionPayDetail>();
+            List<TransactionServerDal.PayCurrencyEntity> dBorrowInfoEntities = new List<TransactionServerDal.PayCurrencyEntity>();
             //循环遍历在运行的云矿机
             foreach (RunCloudMinerModel runCloudMinerModel in runCloudMinerModels)
             {
@@ -170,13 +170,13 @@ namespace BwServer.Controllers.v1.Agent
                 {
                     if (cloudMinerModel.Amount <= 0) continue;
 
-                    BorrowTransaction borrowTransaction = new BorrowTransaction();
+                    TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                     borrowTransaction.CurrencyId = cloudMinerModel.CurrencyId;
                     // ReSharper disable once PossibleLossOfFraction
                     borrowTransaction.Amount = cloudMinerModel.Amount * (runCloudMinerModel.ProductionAmount / runCloudMinerModel.ProductionCycle);
                     borrowTransactions.Add(borrowTransaction);
 
-                    TransactionInfoDal.BorrowInfoEntity borrowInfoEntity = new TransactionInfoDal.BorrowInfoEntity();
+                    TransactionServerDal.PayCurrencyEntity borrowInfoEntity = new TransactionServerDal.PayCurrencyEntity();
                     borrowInfoEntity.CurrencyId = borrowTransaction.CurrencyId;
                     borrowInfoEntity.Amount = borrowTransaction.Amount;
                     borrowInfoEntities.Add(borrowInfoEntity);
@@ -217,12 +217,12 @@ namespace BwServer.Controllers.v1.Agent
 
                             foreach (var borrowTransaction in borrowTransactions)
                             {
-                                BorrowTransaction dBorrowTransaction = new BorrowTransaction();
+                                TransactionPayDetail dBorrowTransaction = new TransactionPayDetail();
                                 dBorrowTransaction.CurrencyId = borrowTransaction.CurrencyId;
                                 dBorrowTransaction.Amount = borrowTransaction.Amount * distributionMechanismModel.Proportion;
                                 dBorrowTransactions.Add(dBorrowTransaction);
 
-                                TransactionInfoDal.BorrowInfoEntity tempBorrowInfoEntity = new TransactionInfoDal.BorrowInfoEntity();
+                                TransactionServerDal.PayCurrencyEntity tempBorrowInfoEntity = new TransactionServerDal.PayCurrencyEntity();
                                 tempBorrowInfoEntity.CurrencyId = borrowTransaction.CurrencyId;
                                 tempBorrowInfoEntity.Amount = borrowTransaction.Amount * distributionMechanismModel.Proportion;
                                 dBorrowInfoEntities.Add(tempBorrowInfoEntity);
@@ -245,6 +245,7 @@ namespace BwServer.Controllers.v1.Agent
                 }
                 #endregion
             }
+            State = "2";
         }
 
         public class RunCloudMinerModel

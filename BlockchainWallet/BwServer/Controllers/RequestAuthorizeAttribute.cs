@@ -91,7 +91,9 @@ namespace BwServer.Controllers
         }
 
     }
-
+    /// <summary>
+    /// 系统维护控制
+    /// </summary>
     public class SystemMaintenance
     {
         private static readonly SystemMaintenanceDal_ SystemMaintenanceDal = new SystemMaintenanceDal_();

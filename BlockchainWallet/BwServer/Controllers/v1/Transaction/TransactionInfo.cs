@@ -42,25 +42,16 @@ namespace BwServer.Controllers.v1.Transaction
         /// <summary>
         /// 借款交易
         /// </summary>
-        public List<BorrowTransaction> BorrowTransactions = new List<BorrowTransaction>();
+        public List<TransactionPayDetail> BorrowTransactions = new List<TransactionPayDetail>();
         /// <summary>
         /// 贷款交易
         /// </summary>
-        public List<LoansTransaction> LoansTransactions = new List<LoansTransaction>();
-    }
-    /// <summary>
-    /// 借款交易
-    /// </summary>
-    public class BorrowTransaction
-    {
-        public int CurrencyId { get; set; }
-
-        public decimal Amount { get; set; }
+        public List<TransactionPayDetail> LoansTransactions = new List<TransactionPayDetail>();
     }
     /// <summary>
     /// 贷款交易
     /// </summary>
-    public class LoansTransaction
+    public class TransactionPayDetail
     {
         public int CurrencyId { get; set; }
         public decimal Amount { get; set; }

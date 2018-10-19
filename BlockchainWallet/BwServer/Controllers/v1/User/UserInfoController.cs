@@ -116,5 +116,49 @@ namespace BwServer.Controllers.v1.User
             int rows = _accountInfoDal.UpdateSex(updateSexModelGet.Id, updateSexModelGet.Sex);
             return Json(new ResultDataModel<UpdateSexModelResult> { Code = rows == 1 ? 0 : -1 });
         }
+
+        /// <summary>
+        /// 绑定外部账号
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult BindExternalUser(BindExternalUserModelGet modelGet)
+        {
+            string openUserId = _accountInfoDal.BindExternalUser(modelGet.UserId, modelGet.ExternalUserId, modelGet.AppId);
+            return Json(new ResultDataModel<BindExternalUserModelResult> { Code = (openUserId != "-1" && openUserId != " -2") ? 0 : -1, Messages = openUserId == "-2" ? "用户已绑定" : "", Data = new BindExternalUserModelResult() { OpenUserId = (openUserId != "-1" && openUserId != " -2") ? openUserId : "" } });
+        }
+
+        /// <summary>
+        /// 检查第三方程序用户绑定状态
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult CheckBindExternalUserState(CheckBindExternalUserStateModelGet modelGet)
+        {
+            string result = _accountInfoDal.CheckBindExternalUserState(modelGet.UserId, modelGet.AppId);
+            return Json(new ResultDataModel<CheckBindExternalUserStateModelResult>
+            {
+                Code = 0,
+                Data = new CheckBindExternalUserStateModelResult()
+                {
+                    OpenUserId = result
+                }
+            });
+        }
+
+        /// <summary>
+        /// 检查第三方程序用户绑定状态（对外开放接口）
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult CheckBindExternalUserState3(CheckBindExternalUserStateModelGet modelGet)
+        {
+            string result = _accountInfoDal.CheckBindExternalUserState3(modelGet.ExternalUserId, modelGet.AppId);
+            return Json(new ResultDataModel<CheckBindExternalUserStateModelResult>
+            {
+                Code = 0,
+                Data = new CheckBindExternalUserStateModelResult()
+                {
+                    OpenUserId = result
+                }
+            });
+        }
     }
 }

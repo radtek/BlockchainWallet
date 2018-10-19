@@ -108,6 +108,7 @@
     <Compile Include="Controllers\v1\System\BugController.cs" />
     <Compile Include="Controllers\v1\System\PhoneVerificationController.cs" />
     <Compile Include="Controllers\v1\System\SystemMaintenance_Controller.cs" />
+    <Compile Include="Controllers\v1\Transaction\TransactionController.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionInfo.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionQueue.cs" />
     <Compile Include="Controllers\v1\Transaction\TransactionService.cs" />
@@ -154,10 +155,17 @@
     <Compile Include="Models\v1\System\AnnouncementInfoModel.cs" />
     <Compile Include="Models\v1\System\PhoneVerificationModel.cs" />
     <Compile Include="Models\v1\System\SystemMaintenanceModel_.cs" />
+    <Compile Include="Models\v1\Transaction\CurrencyModel.cs" />
+    <Compile Include="Models\v1\Transaction\TransactionB2CCheckModel.cs" />
+    <Compile Include="Models\v1\Transaction\TransactionB2CModel.cs" />
+    <Compile Include="Models\v1\Transaction\TransactionP2PCheckModel.cs" />
+    <Compile Include="Models\v1\Transaction\TransactionP2PModel.cs" />
     <Compile Include="Models\v1\User\Fans\AllFansVipInfoModel.cs" />
     <Compile Include="Models\v1\User\Fans\FansGenerationCountModel.cs" />
     <Compile Include="Models\v1\User\Fans\FansModel.cs" />
     <Compile Include="Models\v1\User\Fans\FansVipCountModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\BindExternalUserModel.cs" />
+    <Compile Include="Models\v1\User\UserInfo\CheckBindExternalUserStateModel.cs" />
     <Compile Include="Models\v1\User\UserInfo\CompanyAccountInfoModel.cs" />
     <Compile Include="Models\v1\Employee\EmployeeLogin\EmployeeLoginModel.cs" />
     <Compile Include="Models\v1\User\UserInfo\UpdateLoginPasswordModel.cs" />

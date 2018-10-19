@@ -269,6 +269,7 @@ namespace BwDal.User
             string strSql = string.Format("UPDATE user_info SET VipId ={0} WHERE Id={1} ", vipId, userId);
             return MySqlHelper.Single.ExecuteNonQuery(strSql) == 1;
         }
+
         /// <summary>
         /// 获取当前用户真实VIP等级Rank
         /// </summary>
@@ -284,6 +285,7 @@ namespace BwDal.User
             }
             return Convert.ToInt32(obj);
         }
+
         /// <summary>
         /// 检查是否为股东账户
         /// </summary>
@@ -295,5 +297,99 @@ namespace BwDal.User
             DataTable dataTable = MySqlHelper.Single.ExecuteDataTable(strSql);
             return dataTable.Rows.Count == 1;
         }
+
+        /// <summary>
+        /// 绑定外部账号
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="externalUserId"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public string BindExternalUser(int userId, string externalUserId, int appId)
+        {
+            using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
+            {
+                mySqlConnection.Open();
+                MySqlTransaction mySqlTransaction = mySqlConnection.BeginTransaction();
+                try
+                {
+                    lock (_objLock)
+                    {
+                        string strCheckUser =
+                            string.Format(
+                                "SELECT Count(0) Count FROM authorize_user_info WHERE UserId={0} AND AppId={1} AND State='0'", userId,
+                                appId);
+                        int count = Convert.ToInt32(
+                            MySqlHelper.Single.ExecuteScalar(mySqlTransaction, CommandType.Text, strCheckUser));
+                        if (count > 0)
+                        {
+                            mySqlTransaction.Rollback();
+                            return "-2";
+                        }
+                        string openUserId = Guid.NewGuid().ToString();
+                        string strSql =
+                            string.Format(
+                                "INSERT INTO authorize_user_info (AppId,UserId,ExternalUserId,OpenUserId,AuthorizaTime,State) VALUE({0},{1},'{2}','{3}',NOW(),'0');",
+                                appId, userId, externalUserId, openUserId);
+                        int id =
+                            Convert.ToInt32(
+                                MySqlHelper.Single.ExecuteNonQuery(mySqlTransaction, CommandType.Text, strSql));
+                        if (id <= 0)
+                        {
+                            mySqlTransaction.Rollback();
+                            return "-1";
+                        }
+                        mySqlTransaction.Commit();
+                        return openUserId;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    LogHelper.error(e.ToString());
+                    mySqlTransaction.Rollback();
+                    return "-1";
+                }
+            }
+        }
+
+        /// <summary>
+        /// 检查用户绑定的身份证
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>如果已绑定直接返回绑定的身份证号，未绑定直接返回身份证号</returns>
+        public string CheckBindIdCard(int userId)
+        {
+            string strSql = string.Format("SELECT IdCard from user_info WHERE Id={0}", userId);
+            object obj = MySqlHelper.Single.ExecuteScalar(strSql);
+            return obj == null ? "" : obj.ToString();
+        }
+
+        /// <summary>
+        /// 检查用户绑定状态
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public string CheckBindExternalUserState(int userId, int appId)
+        {
+            string strSql = string.Format("SELECT OpenUserId FROM authorize_user_info WHERE UserId={0} AND AppId={1} AND State='0'", userId, appId);
+            object obj = MySqlHelper.Single.ExecuteScalar(strSql);
+            return obj == null ? "" : obj.ToString();
+        }
+
+        /// <summary>
+        /// 检查用户绑定状态
+        /// </summary>
+        /// <param name="externalUserId"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public string CheckBindExternalUserState3(string externalUserId, int appId)
+        {
+            string strSql = string.Format("SELECT OpenUserId FROM authorize_user_info WHERE ExternalUserId='{0}' AND AppId={1} AND State='0'", externalUserId, appId);
+            object obj = MySqlHelper.Single.ExecuteScalar(strSql);
+            return obj == null ? "" : obj.ToString();
+        }
+
     }
 }

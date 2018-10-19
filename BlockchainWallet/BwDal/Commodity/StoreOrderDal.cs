@@ -109,6 +109,17 @@ namespace BwDal.Commodity
         }
 
         /// <summary>
+        /// 检查订单状态
+        /// </summary>
+        /// <returns></returns>
+        public string CheckStoreOrderState(int orderId)
+        {
+            var strSql = string.Format("select o.State from store_order o WHERE o.Id={0}", orderId);
+            object state = MySqlHelper.Single.ExecuteScalar(strSql);
+            return state == null ? "" : state.ToString();
+        }
+
+        /// <summary>
         /// 修改订单状态
         /// </summary>
         /// <returns></returns>

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BwCommon.Log;
 using MySql.Data.MySqlClient;
 using MySqlHelper = BwDal.Helper.MySqlHelper;
 
-namespace BwDal.Wallet
+namespace BwDal.Transaction
 {
-    public class TransactionInfoDal
+    public class TransactionServerDal
     {
-        public string RunTransaction(string no, int orderId, int payUserId, int payeeUserId, List<BorrowInfoEntity> borrowInfoEntities, List<LoansInfoEntity> loansInfoEntities, string type)
+        public string RunTransaction(string no, int orderId, int payUserId, int payeeUserId, List<PayCurrencyEntity> borrowInfoEntities, List<PayCurrencyEntity> loansInfoEntities, string type)
         {
             using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
             {
@@ -85,14 +83,7 @@ namespace BwDal.Wallet
 
             }
         }
-        public class BorrowInfoEntity
-        {
-            public int CurrencyId { get; set; }
-
-            public decimal Amount { get; set; }
-
-        }
-        public class LoansInfoEntity
+        public class PayCurrencyEntity
         {
             public int CurrencyId { get; set; }
 
