@@ -21,5 +21,17 @@ namespace BwServer.Controllers.v1.Wallet
             IList<WalletInfoModelResult> currencyInfoModelResults = ModelConvertHelper<WalletInfoModelResult>.ConvertToModel(dt);
             return Json(new ResultDataModel<IList<WalletInfoModelResult>> { Data = currencyInfoModelResults });
         }
+        public IHttpActionResult QueryWalletAddress(QueryWalletAddressModelGet modelGet)
+        {
+            string walletAddress = _walletInfoDal.QueryWalletAddress(modelGet.UserId);
+            return Json(new ResultDataModel<QueryWalletAddressModelResult>
+            {
+                Code = string.IsNullOrEmpty(walletAddress) ? -1 : 0,
+                Data = new QueryWalletAddressModelResult()
+                {
+                    WalletAddress = string.IsNullOrEmpty(walletAddress) ? "" : walletAddress
+                }
+            });
+        }
     }
 }

@@ -179,6 +179,7 @@
     <Compile Include="Models\v1\Wallet\Currency\CurrencyInfoModel.cs" />
     <Compile Include="Models\v1\Wallet\Currency\CurrencyPriceRecordModel_.cs" />
     <Compile Include="Models\v1\Wallet\Currency\UpdateQqxPriceModel.cs" />
+    <Compile Include="Models\v1\Wallet\WalletInfo\QueryWalletAddressModel.cs" />
     <Compile Include="Models\v1\Wallet\WalletInfo\QueryWalletInfoModel_.cs" />
     <Compile Include="Models\v1\Wallet\WalletInfo\WalletInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
