@@ -156,6 +156,7 @@
     <Compile Include="Models\v1\System\PhoneVerificationModel.cs" />
     <Compile Include="Models\v1\System\SystemMaintenanceModel_.cs" />
     <Compile Include="Models\v1\Transaction\CurrencyModel.cs" />
+    <Compile Include="Models\v1\Transaction\QueryTransactionP2PRecordModel.cs" />
     <Compile Include="Models\v1\Transaction\TransactionB2CCheckModel.cs" />
     <Compile Include="Models\v1\Transaction\TransactionB2CModel.cs" />
     <Compile Include="Models\v1\Transaction\TransactionP2PCheckModel.cs" />

@@ -67,6 +67,11 @@ namespace BwServer
                 routeTemplate: "api/v1/Agent/{controller}/{action}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "Transaction_v1",
+                routeTemplate: "api/v1/Transaction/{controller}/{action}",
+                defaults: new { id = RouteParameter.Optional }
+            );
             config.Services.Replace(typeof(IHttpControllerSelector), new VersionControllerSelector(config));
             if (!TransactionServerRun)
             {

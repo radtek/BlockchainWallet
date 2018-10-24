@@ -119,7 +119,7 @@ namespace BwServer.Controllers.v1.Transaction
         /// <summary>
         /// 添加个人向个人转账订单
         /// </summary>
-        public static bool AddTransactionP2P(string type, int payUserId, int payeeUserId, int orderId, List<TransactionPayDetail> borrowTransactions)
+        public static bool AddTransactionP2P(string type, int payUserId, int payeeUserId, int orderId, List<TransactionPayDetail> transactionPayDetails)
         {
             TransactionInfo transactionInfo = new TransactionInfo();
             transactionInfo.No = GetTransactionNo(type, payUserId);
@@ -129,7 +129,7 @@ namespace BwServer.Controllers.v1.Transaction
             transactionInfo.OrderId = orderId;
 
             //借方进账明细
-            foreach (var item in borrowTransactions)
+            foreach (var item in transactionPayDetails)
             {
                 TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                 borrowTransaction.Amount = item.Amount;
@@ -137,7 +137,7 @@ namespace BwServer.Controllers.v1.Transaction
                 transactionInfo.BorrowTransactions.Add(borrowTransaction);
             }
             //贷方支付明细
-            foreach (var borrowTransaction in borrowTransactions)
+            foreach (var borrowTransaction in transactionPayDetails)
             {
                 TransactionPayDetail loansTransaction = new TransactionPayDetail();
                 loansTransaction.Amount = borrowTransaction.Amount;
@@ -160,7 +160,7 @@ namespace BwServer.Controllers.v1.Transaction
         /// <summary>
         /// 添加矿机运行个人产币拨款
         /// </summary>
-        public static bool AddCloudMinerProduce(string type, int userId, int orderId, List<TransactionPayDetail> borrowTransactions)
+        public static bool AddCloudMinerProduce(string type, int userId, int orderId, List<TransactionPayDetail> transactionPayDetails)
         {
             TransactionInfo transactionInfo = new TransactionInfo();
             transactionInfo.No = GetTransactionNo(type, userId);
@@ -170,7 +170,7 @@ namespace BwServer.Controllers.v1.Transaction
             transactionInfo.OrderId = orderId;
 
             //借方进账明细
-            foreach (var item in borrowTransactions)
+            foreach (var item in transactionPayDetails)
             {
                 TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                 borrowTransaction.Amount = item.Amount;
@@ -178,7 +178,7 @@ namespace BwServer.Controllers.v1.Transaction
                 transactionInfo.BorrowTransactions.Add(borrowTransaction);
             }
             //贷方支付明细
-            foreach (var borrowTransaction in borrowTransactions)
+            foreach (var borrowTransaction in transactionPayDetails)
             {
                 TransactionPayDetail loansTransaction = new TransactionPayDetail();
                 loansTransaction.Amount = borrowTransaction.Amount;

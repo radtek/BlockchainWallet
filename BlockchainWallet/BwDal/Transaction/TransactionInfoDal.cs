@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BwCommon.Log;
+using BwDal.Helper;
 using MySql.Data.MySqlClient;
 using MySqlHelper = BwDal.Helper.MySqlHelper;
 
@@ -12,6 +13,35 @@ namespace BwDal.Transaction
 {
     public class TransactionInfoDal
     {
+        /// <summary>
+        /// 查询交易订单记录
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="dataPagingModelGet"></param>
+        /// <returns></returns>
+        public DataSet QueryTransactionP2PRecord(int userId, DataPagingModelGet dataPagingModelGet)
+        {
+            string strSql = string.Format(@"SELECT SQL_CALC_FOUND_ROWS tr.Id,tr.OrderNo,tr.TransactionTime,
+                                            (SELECT WalletAddress FROM wallet_info WHERE UId=tr.PayeeUserId LIMIT 1) PayeeWalletAddress,
+                                            tr.State,tr.Remark
+                                            FROM transaction_p2p_record  tr
+                                            WHERE tr.PayUserId ={0}
+                                            ORDER BY tr.TransactionTime DESC" + dataPagingModelGet.LimitString(), userId);
+            return MySqlHelper.Single.ExecuteDataSet(strSql);
+        }
+        /// <summary>
+        /// 查询交易订单明细
+        /// </summary>
+        /// <param name="orderIds"></param>
+        /// <returns></returns>
+        public DataTable QueryTransactionP2PDetail(string orderIds)
+        {
+            string strSql = string.Format(@"SELECT td.ID,td.OrderId,td.CurrencyId,td.Amount,td.ServiceCharge 
+                                            FROM transaction_p2p_detail td 
+                                            WHERE td.OrderId in ({0})", orderIds);
+            return MySqlHelper.Single.ExecuteDataTable(strSql);
+        }
+
         public int CreateTransactionP2P(string orderNo, int payUserId, int payeeUserId, string remark, List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities)
         {
             using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
@@ -22,11 +52,14 @@ namespace BwDal.Transaction
                 {
                     string sqlStr =
                         string.Format(
-                            "INSERT INTO Transaction_P2P_Record (OrderNo,PayUserId,PayeeUserId,TransactionTime,State,Remark) VALUES('{0}',{1}, {2},NOW(),'1','{3}');SELECT LAST_INSERT_ID() as Id;", orderNo, payUserId, payeeUserId, remark);
+                            "INSERT INTO " +
+                            "Transaction_P2P_Record" +
+                            " (OrderNo,PayUserId,PayeeUserId,TransactionTime,State,Remark) VALUES('{0}',{1}, {2},NOW(),'0','{3}');SELECT LAST_INSERT_ID() as Id;", orderNo, payUserId, payeeUserId, remark);
                     int id = Convert.ToInt32(MySqlHelper.Single.ExecuteScalar(sqlStr));
+
                     if (id <= 0)
                     {
-                        LogHelper.error("创建P2P订单出现错误：创建订单返回值错误 SQL:" + sqlStr);
+                        LogHelper.error("创建P2P订单出现错误：新增P2P订单失败 SQL:" + sqlStr);
                         mySqlTransaction.Rollback();
                         return -1;
                     }
@@ -34,11 +67,11 @@ namespace BwDal.Transaction
                     {
                         sqlStr =
                             string.Format(
-                                "INSERT INTO transaction_p2p_detail(OrderId,CurrencyId,Amount)VALUES({0},{1},{2});", id, entity.CurrencyId, entity.Amount);
+                                "INSERT INTO transaction_p2p_detail(OrderId,CurrencyId,Amount,ServiceCharge)VALUES({0},{1},{2},{3});", id, entity.CurrencyId, entity.Amount, entity.Amount * 0.1M);
                         int row = Convert.ToInt32(MySqlHelper.Single.ExecuteNonQuery(sqlStr));
                         if (row != 1)
                         {
-                            LogHelper.error("创建P2P订单出现错误：创建订单返回值错误 SQL:" + sqlStr);
+                            LogHelper.error("创建P2P订单出现错误：新增P2P订单明细失败 SQL:" + sqlStr);
                             mySqlTransaction.Rollback();
                             return -1;
                         }
@@ -65,11 +98,11 @@ namespace BwDal.Transaction
             return row == 1;
         }
 
-        public string TransactionP2PCheck(int payUserId, string orderNo)
+        public string TransactionP2PCheck(int payUserId, int orderId)
         {
             string sqlStr =
                 string.Format(
-                    "SELECT State FROM transaction_p2p_record WHERE PayUserId ={0} and OrderNo ='{1}'", payUserId, orderNo);
+                    "SELECT State FROM transaction_p2p_record WHERE PayUserId ={0} and Id ={1}", payUserId, orderId);
             object obj = MySqlHelper.Single.ExecuteScalar(sqlStr);
             return obj == null ? "" : obj.ToString();
         }

@@ -391,5 +391,37 @@ namespace BwDal.User
             return obj == null ? "" : obj.ToString();
         }
 
+        /// <summary>
+        /// 根据钱包地址查询用户ID
+        /// </summary>
+        /// <param name="walletAddress"></param>
+        /// <returns></returns>
+        public int QueryUserIdByWalletAddress(string walletAddress)
+        {
+            string strSql = string.Format(@"SELECT w.UId  
+                                            FROM wallet_info w 
+                                            LEFT JOIN user_info u ON w.UId=u.Id
+                                            WHERE u.State='0' AND w.WalletAddress='{0}' 
+                                            LIMIT 1", walletAddress);
+            object objUserId;
+            try
+            {
+                objUserId = MySqlHelper.Single.ExecuteScalar(strSql);
+            }
+            catch (Exception)
+            {
+                LogHelper.error("根据钱包地址查询用户ID报错：Sql" + strSql);
+                return -1;
+            }
+            try
+            {
+                int userId = Convert.ToInt32(objUserId);
+                return userId;
+            }
+            catch (Exception )
+            {
+                return 0;
+            }
+        }
     }
 }

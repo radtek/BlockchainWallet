@@ -8,6 +8,7 @@ using System.Threading;
 using System.Web.Http;
 using BwCommon.ContentConvert;
 using BwCommon.Log;
+using BwDal;
 using BwDal.Transaction;
 using BwDal.User;
 using BwDal.Wallet;
@@ -68,11 +69,19 @@ namespace BwServer.Controllers.v1.Transaction
         /// <returns></returns>
         public IHttpActionResult TransactionP2P(TransactionP2PModelGet modelGet)
         {
-            if (modelGet.PayUserId <= 0 || modelGet.PayeeUserId <= 0 || string.IsNullOrEmpty(modelGet.PayPassword) || modelGet.PayCurrencyList.Count <= 0)
+            if (modelGet.PayUserId <= 0 || string.IsNullOrEmpty(modelGet.PayeeWalletAddress) || string.IsNullOrEmpty(modelGet.PayPassword) || modelGet.PayCurrencyList.Count <= 0)
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4010, Messages = "数据参数有误", });
             }
             if (modelGet.PayCurrencyList.Count(n => n.Amount <= 0) > 0)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证金额不能小于等于0", });
+            }
+            if (modelGet.PayCurrencyList.Count(n => n.ServiceCharge <= 0) > 0)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账手续费金额有误" });
+            }
+            if (modelGet.PayCurrencyList.Count(n => n.Amount * 0.1M != n.ServiceCharge) > 0)
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证金额不能小于等于0", });
             }
@@ -84,7 +93,15 @@ namespace BwServer.Controllers.v1.Transaction
             bool checkPayPassowrd = _userInfoDal.CheckPayPassowrd(modelGet.PayUserId, modelGet.PayPassword);
             if (!checkPayPassowrd)
                 return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4106, Messages = "支付密码错误" });
-
+            int payeeUserId = _userInfoDal.QueryUserIdByWalletAddress(modelGet.PayeeWalletAddress);
+            if (payeeUserId == 0)
+            {
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4304, Messages = "钱包地址不存在" });
+            }
+            if (payeeUserId < 0)
+            {
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4001, Messages = "服务器繁忙，请稍后再试" });
+            }
             DataTable dtWalletInfo = _walletInfoDal.QueryWalletInfo(modelGet.PayUserId);
             IList<WalletInfoModelResult> currencyInfoModelResults =
                 ModelConvertHelper<WalletInfoModelResult>.ConvertToModel(dtWalletInfo);
@@ -96,10 +113,14 @@ namespace BwServer.Controllers.v1.Transaction
             foreach (var item in modelGet.PayCurrencyList)
             {
                 decimal amount = currencyInfoModelResults.FirstOrDefault(n => n.CurrencyId == item.CurrencyId).CanUseAmount;
-                if (amount < item.Amount)
+                if (amount < item.Amount + item.Amount)
                 {
                     return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4302, Messages = "余额不足" });
                 }
+            }
+            if (currencyInfoModelResults.First().WalletAddress == modelGet.PayeeWalletAddress)
+            {
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4303, Messages = "不能转账给自己" });
             }
             string orderNo = GetTransactionNo("02", modelGet.PayUserId);
             List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities = new List<TransactionServerDal.PayCurrencyEntity>();
@@ -110,12 +131,17 @@ namespace BwServer.Controllers.v1.Transaction
                 payCurrencyEntity.Amount = model.Amount;
                 payCurrencyEntity.CurrencyId = model.CurrencyId;
                 payCurrencyEntities.Add(payCurrencyEntity);
+                //TransactionPayDetail transactionPayDetail = new TransactionPayDetail();
 
                 TransactionPayDetail transactionPayDetail = new TransactionPayDetail();
+                transactionPayDetail.Amount = model.Amount;
+                transactionPayDetail.CurrencyId = model.CurrencyId;
+                transactionPayDetails.Add(transactionPayDetail);
             }
+
             //添加P2P交易订单
-            int orderId = _transactionInfoDal.CreateTransactionP2P(orderNo, modelGet.PayUserId, modelGet.PayeeUserId, modelGet.Remark, payCurrencyEntities);
-            if (orderId > 0)
+            int orderId = _transactionInfoDal.CreateTransactionP2P(orderNo, modelGet.PayUserId, payeeUserId, modelGet.Remark, payCurrencyEntities);
+            if (orderId <= 0)
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult>()
                 {
@@ -127,8 +153,9 @@ namespace BwServer.Controllers.v1.Transaction
                     }
                 });
             }
+
             //将订单添加到交易服务并执行交易
-            bool reslut = TransactionService.AddTransactionP2P("02", modelGet.PayUserId, modelGet.PayeeUserId, orderId, transactionPayDetails);
+            bool reslut = TransactionService.AddTransactionP2P("02", modelGet.PayUserId, payeeUserId, orderId, transactionPayDetails);
             return Json(new ResultDataModel<TransactionP2PModelResult>()
             {
                 Code = reslut ? 0 : -1,
@@ -143,17 +170,59 @@ namespace BwServer.Controllers.v1.Transaction
         }
 
         /// <summary>
-        /// 个人对个人交易
+        /// 检查个人对个人交易结果
         /// </summary>
         /// <param name="modelGet"></param>
         /// <returns></returns>
         public IHttpActionResult TransactionP2PCheck(TransactionP2PCheckModelGet modelGet)
         {
-            string result = _transactionInfoDal.TransactionP2PCheck(modelGet.UserId, modelGet.OrderNo);
+            string result = _transactionInfoDal.TransactionP2PCheck(modelGet.UserId, modelGet.OrderId);
 
-            return Json(new TransactionP2PCheckModelResult()
+            return Json(new ResultDataModel<TransactionP2PCheckModelResult>
             {
-                State = result
+                Code = string.IsNullOrEmpty(result) ? -1 : 0,
+                Messages = string.IsNullOrEmpty(result) ? "服务器繁忙，请转至转账记录中查询" : "",
+                Data = new TransactionP2PCheckModelResult
+                {
+                    State = result
+                }
+            });
+        }
+
+        public IHttpActionResult QueryTransactionP2PRecord(QueryTransactionP2PRecordModelGet modelGet)
+        {
+            DataSet dataSet = _transactionInfoDal.QueryTransactionP2PRecord(modelGet.UserId, modelGet.DataPagingModel);
+            IList<QueryTransactionP2PRecordModelResult> cloudMinerProductionModelResult = ModelConvertHelper<QueryTransactionP2PRecordModelResult>.ConvertToModel(dataSet.Tables[0]);
+            string orderIds = "";
+            foreach (var item in cloudMinerProductionModelResult)
+            {
+                orderIds += item.OrderNo == "" ? item.Id.ToString() : "," + item.Id;
+            }
+            if (orderIds != "")
+            {
+                DataTable dataTable = _transactionInfoDal.QueryTransactionP2PDetail(orderIds);
+                IList<TransactionP2PDetailModelResult> transactionP2PDetailModelResults = ModelConvertHelper<TransactionP2PDetailModelResult>.ConvertToModel(dataTable);
+                foreach (var item in cloudMinerProductionModelResult)
+                {
+                    TransactionCurrencyModel transactionCurrencyModel = new TransactionCurrencyModel();
+                    var model = transactionP2PDetailModelResults.FirstOrDefault(n => n.OrderId == item.Id);
+                    if (model != null)
+                    {
+                        transactionCurrencyModel.CurrencyId = model.CurrencyId;
+                        transactionCurrencyModel.Amount = model.Amount;
+                        transactionCurrencyModel.ServiceCharge = model.ServiceCharge;
+                    }
+                    item.PayCurrencyList.Add(transactionCurrencyModel);
+                }
+            }
+
+            return Json(new ResultDataModel<IList<QueryTransactionP2PRecordModelResult>>
+            {
+                Data = cloudMinerProductionModelResult,
+                DataPagingResult = new DataPagingModelResult
+                {
+                    TotalCount = Convert.ToInt32(dataSet.Tables[1].Rows[0][0])
+                }
             });
         }
 

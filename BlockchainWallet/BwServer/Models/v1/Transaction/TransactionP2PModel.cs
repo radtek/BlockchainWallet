@@ -8,9 +8,9 @@ namespace BwServer.Models.v1.Transaction
     public class TransactionP2PModelGet
     {
         public int PayUserId { get; set; }
-        public int PayeeUserId { get; set; }
+        public string PayeeWalletAddress { get; set; }
         public string PayPassword { get; set; }
-        public List<CurrencyModel> PayCurrencyList = new List<CurrencyModel>();
+        public List<TransactionCurrencyModel> PayCurrencyList = new List<TransactionCurrencyModel>();
         public string Remark { get; set; }
     }
     public class TransactionP2PModelResult

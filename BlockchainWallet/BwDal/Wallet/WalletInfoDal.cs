@@ -19,9 +19,10 @@ namespace BwDal.Wallet
         /// <returns></returns>
         public DataTable QueryWalletInfo(int userId)
         {
-            string strSql = string.Format("SELECT  w.Id,w.UId,w.CurrencyID,c.`Code` as CurrencyCode,c.Caption CurrencyCaption,w.AllAmount,w.CanUseAmount,w.FrozenAmount,c.CurrentAmount,w.WalletAddress FROM wallet_info w LEFT JOIN user_info as u ON u.Id=w.UId LEFT JOIN currency_info as c ON w.CurrencyID=c.Id where u.Type!='3' AND w.UId={0}", userId);
+            string strSql = string.Format("SELECT w.Id,w.UId,w.CurrencyID,c.`Code` as CurrencyCode,c.Caption CurrencyCaption,w.AllAmount,w.CanUseAmount,w.FrozenAmount,c.CurrentAmount,w.WalletAddress FROM wallet_info w LEFT JOIN user_info as u ON u.Id=w.UId LEFT JOIN currency_info as c ON w.CurrencyID=c.Id where u.Type!='3' AND w.UId={0}", userId);
             return MySqlHelper.Single.ExecuteDataTable(strSql);
         }
+
         /// <summary>
         /// 查询公司账户钱包信息
         /// </summary>
@@ -41,7 +42,7 @@ namespace BwDal.Wallet
             string strSql = string.Format("SELECT  w.Id,w.UId,w.CurrencyID,c.`Code` as CurrencyCode,c.Caption CurrencyCaption,w.AllAmount,w.CanUseAmount,w.FrozenAmount FROM wallet_info w LEFT JOIN user_info as u ON u.Id=w.UId LEFT JOIN currency_info as c ON w.CurrencyID=c.Id where u.Type='3'");
             return MySqlHelper.Single.ExecuteDataTable(strSql);
         }
-        private static object LockWalletAddress = new object();
+        private static readonly object LockWalletAddress = new object();
         /// <summary>
         /// 获取钱包地址
         /// </summary>
@@ -60,7 +61,7 @@ namespace BwDal.Wallet
                         string walletAddress = string.Empty;
 
                         #region 检查钱包地址是否存在
-                        string strSql = string.Format("SELECT w.WalletAddress FROM wallet_info w.UId={0}", userId);
+                        string strSql = string.Format("SELECT w.WalletAddress FROM wallet_info w Where w.UId={0} LIMIT 1", userId);
                         object objWalletAddress = MySqlHelper.Single.ExecuteScalar(strSql);
                         try
                         {
@@ -81,10 +82,10 @@ namespace BwDal.Wallet
 
                         try
                         {
-                            walletAddress = "0x" + Guid.NewGuid();
+                            walletAddress = ("0x" + Guid.NewGuid().ToString().Replace("-", ""));
                             string updateWalletAddress = string.Format("UPDATE wallet_info SET WalletAddress='{0}' WHERE UId ={1}", walletAddress, userId);
                             int rows = MySqlHelper.Single.ExecuteNonQuery(updateWalletAddress);
-                            if (rows != 1)
+                            if (rows != 3)
                             {
                                 LogHelper.error("获取钱包地址：修改钱包地址失败 sql:" + updateWalletAddress);
                                 mySqlTransaction.Rollback();

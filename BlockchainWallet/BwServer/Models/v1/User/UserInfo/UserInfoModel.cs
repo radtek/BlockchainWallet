@@ -90,7 +90,5 @@ namespace BwServer.Models.v1.User.UserInfo
         public string VipName { get; set; }
         public int RealRank { get; set; }
 
-
-
     }
 }

@@ -8,7 +8,7 @@ namespace BwServer.Models.v1.Transaction
     public class TransactionP2PCheckModelGet
     {
         public int UserId { get; set; }
-        public string OrderNo { get; set; }
+        public int OrderId { get; set; }
     }
     public class TransactionP2PCheckModelResult
     {
