@@ -35,8 +35,26 @@ namespace BwServer.Controllers.v1.Transaction
         /// <returns></returns>
         public IHttpActionResult TransactionB2C(TransactionB2CModelGet modelGet)
         {
+            if (string.IsNullOrEmpty(modelGet.PayOpenId) || string.IsNullOrEmpty(modelGet.PayeeOpenId) || string.IsNullOrEmpty(modelGet.ExternalOrderNo) ||
+                string.IsNullOrEmpty(modelGet.ExternalOrderName) || string.IsNullOrEmpty(modelGet.ExternalOrderType))
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4010, Messages = "数据参数有误", });
+            }
+            if (modelGet.PayCurrencyList.Count(n => n.Amount <= 0) > 0)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "交易金额有误，通证数量不能小于等于0", });
+            }
+            if (modelGet.PayCurrencyList.Count(n => n.Amount * 0.1M != n.ServiceCharge) > 0)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证数量不能小于等于0", });
+            }
+            //检查账号是否存在
 
-
+            //string idCard = _userInfoDal.CheckBindIdCard(modelGet.PayUserId);
+            //if (string.IsNullOrEmpty(idCard))
+            //{
+            //    return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4204, Messages = "该账号未实名认证，请先提交实名认证", });
+            //}
             return Json(new object());
         }
 
@@ -75,15 +93,15 @@ namespace BwServer.Controllers.v1.Transaction
             }
             if (modelGet.PayCurrencyList.Count(n => n.Amount <= 0) > 0)
             {
-                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证金额不能小于等于0", });
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证数量不能小于等于0", });
             }
             if (modelGet.PayCurrencyList.Count(n => n.ServiceCharge <= 0) > 0)
             {
-                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账手续费金额有误" });
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账手续费通证数量有误" });
             }
             if (modelGet.PayCurrencyList.Count(n => n.Amount * 0.1M != n.ServiceCharge) > 0)
             {
-                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证金额不能小于等于0", });
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证数量不能小于等于0", });
             }
             string idCard = _userInfoDal.CheckBindIdCard(modelGet.PayUserId);
             if (string.IsNullOrEmpty(idCard))
@@ -107,7 +125,7 @@ namespace BwServer.Controllers.v1.Transaction
                 ModelConvertHelper<WalletInfoModelResult>.ConvertToModel(dtWalletInfo);
             if (currencyInfoModelResults.Count <= 0)
             {
-                LogHelper.error("支付商城订单失败：用户金额有误");
+                LogHelper.error("支付商城订单失败：用户通证数量有误");
                 throw new Exception();
             }
             foreach (var item in modelGet.PayCurrencyList)
@@ -257,5 +275,7 @@ namespace BwServer.Controllers.v1.Transaction
             }
         }
         #endregion
+
+
     }
 }

@@ -31,6 +31,7 @@ namespace BwServer.Models.v1.Transaction
         /// 外部订单类型 1：商城购物 2：日常消费 3：退款 4：其他
         /// </summary>
         public string ExternalOrderType { get; set; }
+        public List<TransactionCurrencyModel> PayCurrencyList = new List<TransactionCurrencyModel>();
         /// <summary>
         /// 备注
         /// </summary>

@@ -1,0 +1,18 @@
+currency_info  添加字段 CurrentAmount
+cloud_miner_production_record  添加字段 ProductionCount
+cloud_miner_specification 添加字段 ProductionCount->ProductionAmount
+user_cloud_miner 添加ProductionCount
+store_order    添加  ConsignorUserId  int  收款人
+	       添加  BuyTime          datatime 购买时间
+==============V2.3.0================================================
+user_info       添加 RegisterTime  datetime 注册时间
+employee_info   添加 RegisterTime  datetime 注册时间
+currency_info   添加 TotalAmount   Decimal  发行总量
+                添加 CurrentAmount Decimal  当前价格
+
+
+
+
+==============V2.3.0================================================
+system_maintenance 新增表
+employee_info      修改数据 ID=6 Account=windowsserver NickName=矿机运行服务 State=0

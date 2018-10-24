@@ -14,7 +14,7 @@ namespace BwDal.Transaction
     public class TransactionInfoDal
     {
         /// <summary>
-        /// 查询交易订单记录
+        /// 查询转账订单记录
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="dataPagingModelGet"></param>
@@ -30,7 +30,7 @@ namespace BwDal.Transaction
             return MySqlHelper.Single.ExecuteDataSet(strSql);
         }
         /// <summary>
-        /// 查询交易订单明细
+        /// 查询转账订单明细
         /// </summary>
         /// <param name="orderIds"></param>
         /// <returns></returns>
@@ -41,7 +41,15 @@ namespace BwDal.Transaction
                                             WHERE td.OrderId in ({0})", orderIds);
             return MySqlHelper.Single.ExecuteDataTable(strSql);
         }
-
+        /// <summary>
+        /// 创建转转账订单
+        /// </summary>
+        /// <param name="orderNo"></param>
+        /// <param name="payUserId"></param>
+        /// <param name="payeeUserId"></param>
+        /// <param name="remark"></param>
+        /// <param name="payCurrencyEntities"></param>
+        /// <returns></returns>
         public int CreateTransactionP2P(string orderNo, int payUserId, int payeeUserId, string remark, List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities)
         {
             using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
