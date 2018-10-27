@@ -16,6 +16,10 @@ namespace BwServer.Models.v1.Transaction
         /// </summary>
         public string PayeeOpenId { get; set; }
         /// <summary>
+        /// 收款人公开ID
+        /// </summary>
+        public int AppId { get; set; }
+        /// <summary>
         /// 支付密码
         /// </summary>
         public string PayPassword { get; set; }

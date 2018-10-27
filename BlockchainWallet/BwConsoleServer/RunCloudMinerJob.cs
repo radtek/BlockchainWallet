@@ -31,7 +31,7 @@ namespace BwConsoleService
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("***************************[Begin]{0}**************************", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Console.WriteLine("***************************[Begin]{0:yyyy-MM-dd HH:mm:ss}**************************", DateTime.Now);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "    Start cloud miner server");
             LogHelper.info("Start cloud miner server");
@@ -54,7 +54,7 @@ namespace BwConsoleService
                 {
                     case "0":
                         Console.WriteLine("    Cloud miner server is Closed");
-                        Console.WriteLine("****************************[End]{0}****************************", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        Console.WriteLine("****************************[End]{0:yyyy-MM-dd HH:mm:ss}****************************", DateTime.Now);
                         return;
                     case "1":
                         break;
@@ -68,13 +68,13 @@ namespace BwConsoleService
                         Console.WriteLine(str);
                         LogHelper.info(str);
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("****************************[End]{0}****************************", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        Console.WriteLine("****************************[End]{0:yyyy-MM-dd HH:mm:ss}****************************", DateTime.Now);
                         return;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "    Error for cloud miner server :" + result);
                         LogHelper.error("Error for cloud miner server :" + result);
-                        Console.WriteLine("****************************[End]{0}****************************", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        Console.WriteLine("****************************[End]{0:yyyy-MM-dd HH:mm:ss}****************************", DateTime.Now);
                         return;
                 }
             }

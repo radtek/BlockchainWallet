@@ -88,7 +88,9 @@
     <Compile Include="Controllers\RequestAuthorizeAttribute.cs" />
     <Compile Include="Controllers\ExceptionHandling.cs" />
     <Compile Include="Controllers\v1\Agent\AgentController.cs" />
+    <Compile Include="Controllers\v1\Agent\CloudMinerDistributionController.cs" />
     <Compile Include="Controllers\v1\Agent\CloudMinerDistribution_Controller.cs" />
+    <Compile Include="Controllers\v1\Agent\CloudMinerProductionController.cs" />
     <Compile Include="Controllers\v1\Agent\CloudMinerProduction_Controller.cs" />
     <Compile Include="Controllers\v1\Agent\DistributionMechanismController.cs" />
     <Compile Include="Controllers\v1\Agent\CloudMinerServer.cs" />
@@ -129,10 +131,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ResultDataModel.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerDistribution\CloudMinerDistributionModel.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerDistribution\CloudMinerDistributionModel_.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerDistribution\UserCloudMinerDistributionModel_.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerProduct\CloudMinerProductionModel_.cs" />
     <Compile Include="Models\v1\Agent\CloudMinerProduct\UserCloudMinerProductionModel_.cs" />
+    <Compile Include="Models\v1\Authorize\AuthorizeUserInfoModel.cs" />
     <Compile Include="Models\v1\Commodity\CloudMinerInfo\CheckCloudMinerModel_.cs" />
     <Compile Include="Models\v1\Commodity\CloudMinerInfo\CloudMinerInfoModel.cs" />
     <Compile Include="Models\v1\Commodity\CommodityInfo\BuyQualificationInfoModel.cs" />
@@ -143,6 +147,7 @@
     <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderPayDetailModel.cs" />
     <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel.cs" />
     <Compile Include="Models\v1\Commodity\StoreOrder\StoreOrderModel_.cs" />
+    <Compile Include="Models\v1\Agent\CloudMinerProduct\CloudMinerProductionRecordModel.cs" />
     <Compile Include="Models\v1\Commodity\UserCloudMiner\UserCloudMinerModel.cs" />
     <Compile Include="Models\v1\Commodity\UserCloudMiner\UserCloudMinerModel_.cs" />
     <Compile Include="Models\v1\System\BugModel.cs" />
@@ -198,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\v1\Authorize\" />
     <Folder Include="Resource\CollectionCodeImage\" />
     <Folder Include="Resource\IdCardImages\Pass\" />
     <Folder Include="Resource\IdCardImages\UnPass\" />

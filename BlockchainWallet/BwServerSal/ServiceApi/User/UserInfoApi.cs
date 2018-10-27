@@ -58,21 +58,21 @@ namespace BwServerSal.ServiceApi.User
         public bool InsertVipUrCloudminer(VipUrCloudminerModelSend vipUrCloudminerModelSend)
         {
             HeadModelGet<List<VipSettingQueryModelGet>> headModelGet = BwHttpApiAccess<HeadModelGet<List<VipSettingQueryModelGet>>>.PostMsg(
-                ApiAddress.InsertVipUrCloudminer, vipUrCloudminerModelSend);
+                ApiAddress.InsertVipUrCloudMiner, vipUrCloudminerModelSend);
             return headModelGet.Code == 0;
         }
 
         public bool UpdateVipUrCloudminer(VipUrCloudminerModelSend vipUrCloudminerModelSend)
         {
             HeadModelGet<List<VipSettingQueryModelGet>> headModelGet = BwHttpApiAccess<HeadModelGet<List<VipSettingQueryModelGet>>>.PostMsg(
-                ApiAddress.UpdateVipUrCloudminer, vipUrCloudminerModelSend);
+                ApiAddress.UpdateVipUrCloudMiner, vipUrCloudminerModelSend);
             return headModelGet.Code == 0;
         }
 
         public bool DeleteVipUrCloudminer(VipUrCloudminerModelSend vipUrCloudminerModelSend)
         {
             HeadModelGet<List<VipSettingQueryModelGet>> headModelGet = BwHttpApiAccess<HeadModelGet<List<VipSettingQueryModelGet>>>.PostMsg(
-                ApiAddress.DeleteVipUrCloudminer, vipUrCloudminerModelSend);
+                ApiAddress.DeleteVipUrCloudMiner, vipUrCloudminerModelSend);
             return headModelGet.Code == 0;
         }
         #endregion

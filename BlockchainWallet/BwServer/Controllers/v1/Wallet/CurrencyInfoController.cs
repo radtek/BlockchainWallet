@@ -11,6 +11,7 @@ using BwDal;
 using BwDal.User;
 using BwDal.Wallet;
 using BwServer.Models;
+using BwServer.Models.v1.Commodity.StoreOrder;
 using BwServer.Models.v1.Wallet.Currency;
 
 namespace BwServer.Controllers.v1.Wallet
@@ -19,7 +20,7 @@ namespace BwServer.Controllers.v1.Wallet
     {
         private readonly CurrencyInfoDal _currencyInfoDal = new CurrencyInfoDal();
         private readonly UserInfoDal _userInfoDal = new UserInfoDal();
-        private readonly CurrencyInfoController _currencyInfoController = new CurrencyInfoController();
+
         /// <summary>
         /// 修改当前价格
         /// </summary>
@@ -35,6 +36,7 @@ namespace BwServer.Controllers.v1.Wallet
             int rows = _currencyInfoDal.UpdateCurrencyPrice(modelGet.CurrencyId, modelGet.Price, modelGet.UserId, "1");
             return Json(new ResultDataModel<IList<UpdateQqxPriceModelResult>> { Code = rows == 1 ? 0 : -1, Messages = rows == 1 ? "" : "修改失败" });
         }
+
         /// <summary>
         /// 查询通证价格修改记录
         /// </summary>
@@ -42,7 +44,14 @@ namespace BwServer.Controllers.v1.Wallet
         /// <returns></returns>
         public IHttpActionResult QueryCurrencyPriceRecord(CurrencyPriceRecordModelGet_ modelGet)
         {
-            return _currencyInfoController.QueryCurrencyPriceRecord(modelGet);
+            if (modelGet.DataPagingModel == null)
+            {
+                return Json(new ResultDataModel<IList<StoreOrderModelResult>> { Code = 4011, Messages = "分页数据有误" });
+            }
+            DataSet dsStoreOrder = _currencyInfoDal.QueryCurrencyPriceRecord(modelGet.DataPagingModel);
+            IList<CurrencyPriceRecordModelResult_> storeOrderModelResults = ModelConvertHelper<CurrencyPriceRecordModelResult_>.ConvertToModel(dsStoreOrder.Tables[0]);
+            return Json(new ResultDataModel<IList<CurrencyPriceRecordModelResult_>> { Data = storeOrderModelResults, DataPagingResult = new DataPagingModelResult() { TotalCount = Convert.ToInt32(dsStoreOrder.Tables[1].Rows[0][0]) } });
         }
+
     }
 }

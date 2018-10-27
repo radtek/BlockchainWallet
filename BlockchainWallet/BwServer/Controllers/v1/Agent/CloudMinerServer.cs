@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using BwCommon.ContentConvert;
 using BwCommon.Log;
+using BwCommon.Msg;
 using BwDal.Agent;
 using BwDal.Commodity;
 using BwDal.DistributionMechanism;
@@ -97,13 +98,29 @@ namespace BwServer.Controllers.v1.Agent
             }
             catch (Exception e)
             {
+#if DEBUG
+
+#else
+                PhoneMessagesHelper.SendDdMessages("18696129948,13686847531", DateTime.Now.ToString("yyyy-MM-dd HH:mm") + " 矿机运行出错，请检查数据！");
+#endif
                 LogHelper.error(e.Message);
                 State = e.Message;
             }
-
-            LogHelper.info("矿机结束运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"));
+#if DEBUG
+            PhoneMessagesHelper.SendDdMessages("18696129948,13686847531", string.Format("日期{0:yyyy-MM-dd HH:mm} 产量[现货通证：{1} 易货通证：{2} 理财通证{3}] 分润[现货通证：{4} 易货通证：{5} 理财通证{6}]",
+                DateTime.Now, _productionAmount * 0.5M, _productionAmount * 0.3M, _productionAmount * 0.2M, _distributionAmount * 0.5M, _distributionAmount * 0.3M, _distributionAmount * 0.2M));
+#else
+            PhoneMessagesHelper.SendDdMessages("18696129948,13686847531", string.Format("日期{0:yyyy-MM-dd HH:mm} 产量[现货通证：{1} 易货通证：{2} 理财通证{3}] 分润[现货通证：{4} 易货通证：{5} 理财通证{6}]",
+                DateTime.Now, _productionAmount * 0.5M, _productionAmount * 0.3M, _productionAmount * 0.2M, _distributionAmount * 0.5M, _distributionAmount * 0.3M, _distributionAmount * 0.2M));
+            
+#endif
+            _productionAmount = 0M;
+            _distributionAmount = 0M;
+            LogHelper.info("矿机结束运行:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
+        private decimal _productionAmount = 0M;
+        private decimal _distributionAmount = 0M;
         /// <summary>
         /// 矿机产币和分润 
         /// </summary>
@@ -172,7 +189,6 @@ namespace BwServer.Controllers.v1.Agent
 
                     TransactionPayDetail borrowTransaction = new TransactionPayDetail();
                     borrowTransaction.CurrencyId = cloudMinerModel.CurrencyId;
-                    // ReSharper disable once PossibleLossOfFraction
                     borrowTransaction.Amount = cloudMinerModel.Amount * (runCloudMinerModel.ProductionAmount / runCloudMinerModel.ProductionCycle);
                     borrowTransactions.Add(borrowTransaction);
 
@@ -183,6 +199,7 @@ namespace BwServer.Controllers.v1.Agent
                 }
                 int recordId = _cloudMinerProductionDal.InsertCloudMinerProductionRecord(runCloudMinerModel.Id, runCloudMinerModel.CommodityId, runCloudMinerModel.UserId, borrowInfoEntities, runCloudMinerModel.ProductionCount + 1);
                 TransactionService.AddCloudMinerProduce("03", runCloudMinerModel.UserId, recordId, borrowTransactions);
+                _productionAmount += borrowTransactions.Sum(n => n.Amount);
                 #endregion
 
                 #region 分销
@@ -229,7 +246,7 @@ namespace BwServer.Controllers.v1.Agent
                             }
                             int cmdrId = _cloudMinerDistributionMechanismDal.InsertCloudMinerDistributionRecord(runCloudMinerModel.Id, runCloudMinerModel.CommodityId, fansId, dBorrowInfoEntities);
                             TransactionService.AddCloudMinerProduceDistribution("04", fansId, cmdrId, dBorrowTransactions);
-
+                            _distributionAmount += dBorrowTransactions.Sum(n => n.Amount);
                         }
                         catch (Exception exception)
                         {

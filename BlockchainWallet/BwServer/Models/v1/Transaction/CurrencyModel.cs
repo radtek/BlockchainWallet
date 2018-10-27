@@ -24,4 +24,19 @@ namespace BwServer.Models.v1.Transaction
         public decimal ServiceCharge { get; set; }
 
     }
+    /// <summary>
+    /// 通证模型
+    /// </summary>
+    public class PayCurrencyModel
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CurrencyId { get; set; }
+        /// <summary>
+        /// 金额
+        /// </summary>
+        public decimal Amount { get; set; }
+
+    }
 }

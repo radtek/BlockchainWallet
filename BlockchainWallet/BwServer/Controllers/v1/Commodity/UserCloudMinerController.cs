@@ -6,9 +6,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BwCommon.ContentConvert;
+using BwDal;
 using BwDal.Commodity;
 using BwServer.Models;
 using BwServer.Models.v1.Commodity.UserCloudMiner;
+using BwServer.Models.v1.Transaction;
 
 namespace BwServer.Controllers.v1.Commodity
 {
@@ -52,6 +54,8 @@ namespace BwServer.Controllers.v1.Commodity
             IList<UserCloudMinerOverviewModelResult> userCloudMinerModelResults =
                 ModelConvertHelper<UserCloudMinerOverviewModelResult>.ConvertToModel(dt);
             return Json(new ResultDataModel<UserCloudMinerOverviewModelResult>() { Data = userCloudMinerModelResults.FirstOrDefault() });
-        } 
+        }
+
+        
     }
 }

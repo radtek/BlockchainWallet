@@ -10,8 +10,6 @@ namespace BwServerSal
     {
         public static string LocalHost = "http://192.168.1.150:8077";
         //public static string LocalHost = "http://192.168.1.150:8088";
-        //public static string LocalHost = "http://149.248.6.45:80";
-        //public static string ApiUrlRoot = "http://192.168.1.150:8077/api";
 
         public static string ApiUrlRoot = LocalHost + "/api";
         //====================用户相关=================================
@@ -28,9 +26,9 @@ namespace BwServerSal
         public static string InsertVipUrFans = ApiUrlRoot + "/v1/User/VipInfo/InsertVipUrFans";
         public static string UpdateVipUrFans = ApiUrlRoot + "/v1/User/VipInfo/UpdateVipUrFans";
         public static string DeleteVipUrFans = ApiUrlRoot + "/v1/User/VipInfo/RemoveVipUrFans";
-        public static string InsertVipUrCloudminer = ApiUrlRoot + "/v1/User/VipInfo/InsertVipUrCloudminer";
-        public static string UpdateVipUrCloudminer = ApiUrlRoot + "/v1/User/VipInfo/UpdateVipUrCloudminer";
-        public static string DeleteVipUrCloudminer = ApiUrlRoot + "/v1/User/VipInfo/RemoveVipUrCloudminer";
+        public static string InsertVipUrCloudMiner = ApiUrlRoot + "/v1/User/VipInfo/InsertVipUrCloudMiner";
+        public static string UpdateVipUrCloudMiner = ApiUrlRoot + "/v1/User/VipInfo/UpdateVipUrCloudMiner";
+        public static string DeleteVipUrCloudMiner = ApiUrlRoot + "/v1/User/VipInfo/RemoveVipUrCloudMiner";
 
 
         //====================钱包相关=================================

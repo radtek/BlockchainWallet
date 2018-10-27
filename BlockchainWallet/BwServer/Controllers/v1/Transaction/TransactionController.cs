@@ -9,11 +9,13 @@ using System.Web.Http;
 using BwCommon.ContentConvert;
 using BwCommon.Log;
 using BwDal;
+using BwDal.Authorize;
 using BwDal.Transaction;
 using BwDal.User;
 using BwDal.Wallet;
 using BwServer.Controllers.v1.Commodity;
 using BwServer.Models;
+using BwServer.Models.v1.Authorize;
 using BwServer.Models.v1.Commodity.StoreOrder;
 using BwServer.Models.v1.Transaction;
 using BwServer.Models.v1.Wallet.WalletInfo;
@@ -25,9 +27,10 @@ namespace BwServer.Controllers.v1.Transaction
     /// </summary>
     public class TransactionController : ApiController
     {
-        private TransactionInfoDal _transactionInfoDal = new TransactionInfoDal();
-        private UserInfoDal _userInfoDal = new UserInfoDal();
+        private readonly TransactionInfoDal _transactionInfoDal = new TransactionInfoDal();
+        private readonly UserInfoDal _userInfoDal = new UserInfoDal();
         private readonly WalletInfoDal _walletInfoDal = new WalletInfoDal();
+        private readonly AuthorizeUserInfoDal _authorizeUserInfoDal = new AuthorizeUserInfoDal();
         /// <summary>
         /// 商户对个人交易
         /// </summary>
@@ -40,6 +43,7 @@ namespace BwServer.Controllers.v1.Transaction
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4010, Messages = "数据参数有误", });
             }
+
             if (modelGet.PayCurrencyList.Count(n => n.Amount <= 0) > 0)
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "交易金额有误，通证数量不能小于等于0", });
@@ -48,13 +52,103 @@ namespace BwServer.Controllers.v1.Transaction
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "转账通证数量不能小于等于0", });
             }
-            //检查账号是否存在
+            //检查付款账号是否存在
+            DataTable dtPayAuthorizeUserInfo = _authorizeUserInfoDal.QueryCommodityInfo(modelGet.AppId, modelGet.PayOpenId);
+            IList<AuthorizeUserInfoModelGet> listPayAuthorizeUserInfo =
+                ModelConvertHelper<AuthorizeUserInfoModelGet>.ConvertToModel(dtPayAuthorizeUserInfo);
+            AuthorizeUserInfoModelGet authorizePayUserInfoModelGet = listPayAuthorizeUserInfo.FirstOrDefault(n => n.State == "0");
+            if (authorizePayUserInfoModelGet == null)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "付款账户未绑定个人钱包", });
+            }
+            //检查收款账户是否存在
+            DataTable dtPayeeAuthorizeUserInfo = _authorizeUserInfoDal.QueryCommodityInfo(modelGet.AppId, modelGet.PayeeOpenId);
+            IList<AuthorizeUserInfoModelGet> listPayeeAuthorizeUserInfo = ModelConvertHelper<AuthorizeUserInfoModelGet>.ConvertToModel(dtPayeeAuthorizeUserInfo);
+            AuthorizeUserInfoModelGet authorizePayeeUserInfoModelGet = listPayeeAuthorizeUserInfo.FirstOrDefault(n => n.State == "0"); ;
+            if (authorizePayeeUserInfoModelGet == null)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = -1, Messages = "收款账户未绑定个人钱包", });
+            }
+            //检查付款方是否实名认证
+            string idCard = _userInfoDal.CheckBindIdCard(authorizePayUserInfoModelGet.UserId);
+            if (string.IsNullOrEmpty(idCard))
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4204, Messages = "付款账号未实名认证，请先提交实名认证", });
+            }
+            //检查支付密码是否正确
+            bool checkPayPassword = _userInfoDal.CheckPayPassowrd(authorizePayeeUserInfoModelGet.UserId, modelGet.PayPassword);
+            if (!checkPayPassword)
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4106, Messages = "支付密码错误" });
+            //不能给自己转账
+            if (authorizePayUserInfoModelGet.UserId == authorizePayeeUserInfoModelGet.UserId)
+            {
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4303, Messages = "不能转账给自己" });
+            }
+            //查询用户钱包
+            DataTable dtWalletInfo = _walletInfoDal.QueryWalletInfo(authorizePayUserInfoModelGet.UserId);
+            IList<WalletInfoModelResult> currencyInfoModelResults =
+                ModelConvertHelper<WalletInfoModelResult>.ConvertToModel(dtWalletInfo);
+            if (currencyInfoModelResults.Count <= 0)
+            {
+                LogHelper.error("P2P交易时，查询用户钱包信息失败");
+                throw new Exception();
+            }
+            //检查余额
+            foreach (var item in modelGet.PayCurrencyList)
+            {
+                var first = currencyInfoModelResults.FirstOrDefault(n => n.CurrencyId == item.CurrencyId);
 
-            //string idCard = _userInfoDal.CheckBindIdCard(modelGet.PayUserId);
-            //if (string.IsNullOrEmpty(idCard))
-            //{
-            //    return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4204, Messages = "该账号未实名认证，请先提交实名认证", });
-            //}
+                if (first == null) continue;
+                decimal amount = first.CanUseAmount;
+                if (amount < item.Amount + item.Amount * 0.5M)
+                {
+                    return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4302, Messages = "余额不足" });
+                }
+            }
+            //获取支付金额
+            string orderNo = GetTransactionNo("01", authorizePayUserInfoModelGet.UserId);
+            List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities = new List<TransactionServerDal.PayCurrencyEntity>();
+            List<TransactionPayDetail> transactionPayDetails = new List<TransactionPayDetail>();
+            foreach (var model in modelGet.PayCurrencyList)
+            {
+                TransactionServerDal.PayCurrencyEntity payCurrencyEntity = new TransactionServerDal.PayCurrencyEntity();
+                payCurrencyEntity.Amount = model.Amount;
+                payCurrencyEntity.CurrencyId = model.CurrencyId;
+                payCurrencyEntities.Add(payCurrencyEntity);
+
+                TransactionPayDetail transactionPayDetail = new TransactionPayDetail();
+                transactionPayDetail.Amount = model.Amount;
+                transactionPayDetail.CurrencyId = model.CurrencyId;
+                transactionPayDetails.Add(transactionPayDetail);
+            }
+            //添加B2C交易订单
+            int orderId = _transactionInfoDal.CreateTransactionB2C(orderNo, authorizePayUserInfoModelGet.UserId, authorizePayeeUserInfoModelGet.UserId, modelGet.Remark, payCurrencyEntities);
+            if (orderId <= 0)
+            {
+                return Json(new ResultDataModel<TransactionP2PModelResult>()
+                {
+                    Code = -1,
+                    Messages = "当前服务器繁忙，请您稍后再试！",
+                    Data = new TransactionP2PModelResult()
+                    {
+                        OrderNo = ""
+                    }
+                });
+            }
+
+            //将订单添加到交易服务并执行交易
+            bool reslut = TransactionService.AddTransactionB2C("02", authorizePayUserInfoModelGet.UserId, authorizePayeeUserInfoModelGet.UserId, orderId, transactionPayDetails);
+            return Json(new ResultDataModel<TransactionP2PModelResult>()
+            {
+                Code = reslut ? 0 : -1,
+                Messages = reslut ? "" : "当前服务器繁忙，请您稍后再试！",
+                Data = new TransactionP2PModelResult()
+                {
+                    OrderId = orderId,
+                    OrderNo = orderNo,
+                    OrderTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                }
+            });
             return Json(new object());
         }
 
@@ -108,8 +202,8 @@ namespace BwServer.Controllers.v1.Transaction
             {
                 return Json(new ResultDataModel<TransactionP2PModelResult> { Code = 4204, Messages = "该账号未实名认证，请先提交实名认证", });
             }
-            bool checkPayPassowrd = _userInfoDal.CheckPayPassowrd(modelGet.PayUserId, modelGet.PayPassword);
-            if (!checkPayPassowrd)
+            bool checkPayPassword = _userInfoDal.CheckPayPassowrd(modelGet.PayUserId, modelGet.PayPassword);
+            if (!checkPayPassword)
                 return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4106, Messages = "支付密码错误" });
             int payeeUserId = _userInfoDal.QueryUserIdByWalletAddress(modelGet.PayeeWalletAddress);
             if (payeeUserId == 0)
@@ -125,21 +219,24 @@ namespace BwServer.Controllers.v1.Transaction
                 ModelConvertHelper<WalletInfoModelResult>.ConvertToModel(dtWalletInfo);
             if (currencyInfoModelResults.Count <= 0)
             {
-                LogHelper.error("支付商城订单失败：用户通证数量有误");
+                LogHelper.error("P2P交易时，检测用户钱包信息失败");
                 throw new Exception();
             }
             foreach (var item in modelGet.PayCurrencyList)
             {
-                decimal amount = currencyInfoModelResults.FirstOrDefault(n => n.CurrencyId == item.CurrencyId).CanUseAmount;
-                if (amount < item.Amount + item.Amount)
+                var first = currencyInfoModelResults.FirstOrDefault(n => n.CurrencyId == item.CurrencyId);
+                if (first == null) continue;
+                decimal amount = first.CanUseAmount;
+                if (amount < item.Amount + item.Amount * 0.1M)
                 {
                     return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4302, Messages = "余额不足" });
                 }
             }
             if (currencyInfoModelResults.First().WalletAddress == modelGet.PayeeWalletAddress)
             {
-                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4303, Messages = "不能转账给自己" });
+                return Json(new ResultDataModel<StoreOrderModelResult> { Code = 4303, Messages = "收款账户不能为当前登录账户" });
             }
+
             string orderNo = GetTransactionNo("02", modelGet.PayUserId);
             List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities = new List<TransactionServerDal.PayCurrencyEntity>();
             List<TransactionPayDetail> transactionPayDetails = new List<TransactionPayDetail>();
@@ -149,7 +246,6 @@ namespace BwServer.Controllers.v1.Transaction
                 payCurrencyEntity.Amount = model.Amount;
                 payCurrencyEntity.CurrencyId = model.CurrencyId;
                 payCurrencyEntities.Add(payCurrencyEntity);
-                //TransactionPayDetail transactionPayDetail = new TransactionPayDetail();
 
                 TransactionPayDetail transactionPayDetail = new TransactionPayDetail();
                 transactionPayDetail.Amount = model.Amount;
@@ -214,12 +310,12 @@ namespace BwServer.Controllers.v1.Transaction
             string orderIds = "";
             foreach (var item in cloudMinerProductionModelResult)
             {
-                orderIds += item.OrderNo == "" ? item.Id.ToString() : "," + item.Id;
+                orderIds += orderIds == "" ? item.Id.ToString() : "," + item.Id;
             }
             if (orderIds != "")
             {
                 DataTable dataTable = _transactionInfoDal.QueryTransactionP2PDetail(orderIds);
-                IList<TransactionP2PDetailModelResult> transactionP2PDetailModelResults = ModelConvertHelper<TransactionP2PDetailModelResult>.ConvertToModel(dataTable);
+                IList<TransactionP2PDetailModel> transactionP2PDetailModelResults = ModelConvertHelper<TransactionP2PDetailModel>.ConvertToModel(dataTable);
                 foreach (var item in cloudMinerProductionModelResult)
                 {
                     TransactionCurrencyModel transactionCurrencyModel = new TransactionCurrencyModel();

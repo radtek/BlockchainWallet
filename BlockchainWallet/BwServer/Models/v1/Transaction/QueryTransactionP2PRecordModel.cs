@@ -29,10 +29,9 @@ namespace BwServer.Models.v1.Transaction
     /// <summary>
     /// 通证模型
     /// </summary>
-    public class TransactionP2PDetailModelResult
+    public class TransactionP2PDetailModel
     {
         public int OrderId { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

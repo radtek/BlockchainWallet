@@ -82,7 +82,7 @@ namespace BwDal.Wallet
 
                         try
                         {
-                            walletAddress = ("0x" + Guid.NewGuid().ToString().Replace("-", ""));
+                            walletAddress = ("0x" + Guid.NewGuid().ToString("N")) + new Random().Next(10000000, 99999999);
                             string updateWalletAddress = string.Format("UPDATE wallet_info SET WalletAddress='{0}' WHERE UId ={1}", walletAddress, userId);
                             int rows = MySqlHelper.Single.ExecuteNonQuery(updateWalletAddress);
                             if (rows != 3)

@@ -42,7 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\CloudMinerDistributionDal.cs" />
     <Compile Include="Agent\CloudMinerDistributionDal_.cs" />
+    <Compile Include="Agent\CloudMinerProductionDal.cs" />
+    <Compile Include="Authorize\AuthorizeAppInfoDal.cs" />
+    <Compile Include="Authorize\AuthorizeCompanyInfoDal.cs" />
+    <Compile Include="Authorize\AuthorizeInterfaceInfoDal.cs" />
+    <Compile Include="Authorize\AuthorizeUserInfoDal.cs" />
     <Compile Include="Commodity\CloudMinerDal.cs" />
     <Compile Include="Agent\CloudMinerProductionDal_.cs" />
     <Compile Include="Commodity\CommodityDal.cs" />

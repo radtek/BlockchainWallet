@@ -21,12 +21,12 @@ namespace BwDal.Transaction
         /// <returns></returns>
         public DataSet QueryTransactionP2PRecord(int userId, DataPagingModelGet dataPagingModelGet)
         {
-            string strSql = string.Format(@"SELECT SQL_CALC_FOUND_ROWS tr.Id,tr.OrderNo,tr.TransactionTime,
+            string strSql = string.Format(@"SELECT SQL_CALC_FOUND_ROWS tr.Id,tr.OrderNo,date_format(tr.OrderTime, '%Y-%m-%d %H:%i:%s') OrderTime,
                                             (SELECT WalletAddress FROM wallet_info WHERE UId=tr.PayeeUserId LIMIT 1) PayeeWalletAddress,
                                             tr.State,tr.Remark
                                             FROM transaction_p2p_record  tr
                                             WHERE tr.PayUserId ={0}
-                                            ORDER BY tr.TransactionTime DESC" + dataPagingModelGet.LimitString(), userId);
+                                            ORDER BY tr.OrderTime DESC" + dataPagingModelGet.LimitString(), userId);
             return MySqlHelper.Single.ExecuteDataSet(strSql);
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace BwDal.Transaction
             return MySqlHelper.Single.ExecuteDataTable(strSql);
         }
         /// <summary>
-        /// 创建转转账订单
+        /// 创建P2P转账订单
         /// </summary>
         /// <param name="orderNo"></param>
         /// <param name="payUserId"></param>
@@ -62,7 +62,7 @@ namespace BwDal.Transaction
                         string.Format(
                             "INSERT INTO " +
                             "Transaction_P2P_Record" +
-                            " (OrderNo,PayUserId,PayeeUserId,TransactionTime,State,Remark) VALUES('{0}',{1}, {2},NOW(),'0','{3}');SELECT LAST_INSERT_ID() as Id;", orderNo, payUserId, payeeUserId, remark);
+                            " (OrderNo ,PayUserId,PayeeUserId,OrderTime,State,Remark) VALUES('{0}',{1}, {2},NOW(),'0','{3}');SELECT LAST_INSERT_ID() as Id;", orderNo, payUserId, payeeUserId, remark);
                     int id = Convert.ToInt32(MySqlHelper.Single.ExecuteScalar(sqlStr));
 
                     if (id <= 0)
@@ -113,6 +113,62 @@ namespace BwDal.Transaction
                     "SELECT State FROM transaction_p2p_record WHERE PayUserId ={0} and Id ={1}", payUserId, orderId);
             object obj = MySqlHelper.Single.ExecuteScalar(sqlStr);
             return obj == null ? "" : obj.ToString();
+        }
+
+        /// <summary>
+        /// 创建B2C转账订单
+        /// </summary>
+        /// <param name="orderNo"></param>
+        /// <param name="payUserId"></param>
+        /// <param name="payeeUserId"></param>
+        /// <param name="remark"></param>
+        /// <param name="payCurrencyEntities"></param>
+        /// <returns></returns>
+        public int CreateTransactionB2C(string orderNo, int payUserId, int payeeUserId, string remark, List<TransactionServerDal.PayCurrencyEntity> payCurrencyEntities)
+        {
+            using (MySqlConnection mySqlConnection = new MySqlConnection(MySqlHelper.Single.ConnectionString))
+            {
+                mySqlConnection.Open();
+                MySqlTransaction mySqlTransaction = mySqlConnection.BeginTransaction();
+                try
+                {
+                    string sqlStr =
+                        string.Format(
+                            "INSERT INTO " +
+                            "Transaction_P2P_Record" +
+                            " ( ,PayUserId,PayeeUserId,OrderTime,State,Remark) VALUES('{0}',{1}, {2},NOW(),'0','{3}');SELECT LAST_INSERT_ID() as Id;", orderNo, payUserId, payeeUserId, remark);
+                    int id = Convert.ToInt32(MySqlHelper.Single.ExecuteScalar(sqlStr));
+
+                    if (id <= 0)
+                    {
+                        LogHelper.error("创建P2P订单出现错误：新增P2P订单失败 SQL:" + sqlStr);
+                        mySqlTransaction.Rollback();
+                        return -1;
+                    }
+                    foreach (var entity in payCurrencyEntities)
+                    {
+                        sqlStr =
+                            string.Format(
+                                "INSERT INTO transaction_p2p_detail(OrderId,CurrencyId,Amount,ServiceCharge)VALUES({0},{1},{2},{3});", id, entity.CurrencyId, entity.Amount, entity.Amount * 0.1M);
+                        int row = Convert.ToInt32(MySqlHelper.Single.ExecuteNonQuery(sqlStr));
+                        if (row != 1)
+                        {
+                            LogHelper.error("创建P2P订单出现错误：新增P2P订单明细失败 SQL:" + sqlStr);
+                            mySqlTransaction.Rollback();
+                            return -1;
+                        }
+                    }
+                    mySqlTransaction.Commit();
+                    return id;
+                }
+                catch (Exception e)
+                {
+                    LogHelper.error("创建P2P订单出现错误：" + e.Message);
+                    mySqlTransaction.Rollback();
+                    return -1;
+                }
+
+            }
         }
     }
 }

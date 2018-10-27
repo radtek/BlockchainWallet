@@ -120,7 +120,7 @@ namespace BwServer.Controllers
                     if (httpCookieCollection.AllKeys.Contains("UserId"))
                     {
                         object userId = httpCookieCollection["UserId"].Value;
-                        if (Convert.ToInt32(userId) == 6 || Convert.ToInt32(userId) == 1)
+                        if (Convert.ToInt32(userId) == 5 || Convert.ToInt32(userId) == 1)
                         {
                             return false;
                         }

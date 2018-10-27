@@ -158,6 +158,47 @@ namespace BwServer.Controllers.v1.Transaction
         }
 
         /// <summary>
+        /// 添加个人向个人转账订单
+        /// </summary>
+        public static bool AddTransactionB2C(string type, int payUserId, int payeeUserId, int orderId, List<TransactionPayDetail> transactionPayDetails)
+        {
+            TransactionInfo transactionInfo = new TransactionInfo();
+            transactionInfo.No = GetTransactionNo(type, payUserId);
+            transactionInfo.Type = type;
+            transactionInfo.PayUserId = payUserId;
+            transactionInfo.PayeeUserId = payeeUserId;
+            transactionInfo.OrderId = orderId;
+
+            //借方进账明细
+            foreach (var item in transactionPayDetails)
+            {
+                TransactionPayDetail borrowTransaction = new TransactionPayDetail();
+                borrowTransaction.Amount = item.Amount;
+                borrowTransaction.CurrencyId = item.CurrencyId;
+                transactionInfo.BorrowTransactions.Add(borrowTransaction);
+            }
+            //贷方支付明细
+            foreach (var borrowTransaction in transactionPayDetails)
+            {
+                TransactionPayDetail loansTransaction = new TransactionPayDetail();
+                loansTransaction.Amount = borrowTransaction.Amount;
+                loansTransaction.CurrencyId = borrowTransaction.CurrencyId;
+                transactionInfo.LoansTransactions.Add(loansTransaction);
+            }
+
+            transactionInfo.ExectionedAction = state =>
+            {
+                TransactionInfoDal.UpdateTransactionP2P(orderId, state);
+            };
+            while (true)
+            {
+                if (TransactionQueue.AddQueue(transactionInfo)) break;
+                Thread.Sleep(100);
+            }
+            return true;
+        }
+
+        /// <summary>
         /// 添加矿机运行个人产币拨款
         /// </summary>
         public static bool AddCloudMinerProduce(string type, int userId, int orderId, List<TransactionPayDetail> transactionPayDetails)
