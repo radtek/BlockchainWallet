@@ -14,7 +14,7 @@ namespace BwServer.Controllers.v1.User
         public IHttpActionResult QueryVipInfo(VipSettingModelGet vipSettingModelGet)
         {
             DataTable dtVipInfo = _vipInfoDal.QueryVipInfo();
-            DataTable dtVipUrCloudminer = _vipInfoDal.QueryVipUrCloudminer();
+            DataTable dtVipUrCloudMiner = _vipInfoDal.QueryVipUrCloudminer();
             DataTable dtVipUrFans = _vipInfoDal.QueryVipUrFans();
             IList<VipSettingModelResult> list = new List<VipSettingModelResult>();
             foreach (DataRow dr in dtVipInfo.Rows)
@@ -23,15 +23,15 @@ namespace BwServer.Controllers.v1.User
                 vipSettingModelResult.Id = Convert.ToUInt32(dr["Id"]);
                 vipSettingModelResult.Name = dr["Name"].ToString();
                 vipSettingModelResult.Rank = Convert.ToInt32(dr["Rank"]);
-                foreach (DataRow dr1 in dtVipUrCloudminer.Rows)
+                foreach (DataRow dr1 in dtVipUrCloudMiner.Rows)
                 {
                     if (vipSettingModelResult.Id != Convert.ToUInt32(dr1["VipID"])) continue;
-                    VipUrCloudminer vipUrCloudminer = new VipUrCloudminer();
-                    vipUrCloudminer.Id = Convert.ToUInt32(dr1["Id"]);
-                    vipUrCloudminer.CloudMinerCount = Convert.ToInt32(dr1["CloudMinerCount"]);
-                    vipUrCloudminer.CommodityId = Convert.ToInt32(dr1["CommodityId"]);
-                    vipUrCloudminer.CommodityName = dr1["CommodityName"].ToString();
-                    vipSettingModelResult.VipUrCloudmineres.Add(vipUrCloudminer);
+                    VipUrCloudminer vipUrCloudMiner = new VipUrCloudminer();
+                    vipUrCloudMiner.Id = Convert.ToUInt32(dr1["Id"]);
+                    vipUrCloudMiner.CloudMinerCount = Convert.ToInt32(dr1["CloudMinerCount"]);
+                    vipUrCloudMiner.CommodityId = Convert.ToInt32(dr1["CommodityId"]);
+                    vipUrCloudMiner.CommodityName = dr1["CommodityName"].ToString();
+                    vipSettingModelResult.VipUrCloudmineres.Add(vipUrCloudMiner);
                 }
                 foreach (DataRow dr2 in dtVipUrFans.Rows)
                 {
@@ -63,19 +63,19 @@ namespace BwServer.Controllers.v1.User
             int rows = _vipInfoDal.DeleteVipUrFans(vipUrFansGet.Id);
             return Json(new ResultDataModel<VipUrFans> { Code = rows > 0 ? 0 : -1 });
         }
-        public IHttpActionResult InsertVipUrCloudminer(VipUrCloudminerGet vipUrCloudminerGet)
+        public IHttpActionResult InsertVipUrCloudMiner(VipUrCloudminerGet vipUrCloudMinerGet)
         {
-            int rows = _vipInfoDal.InsertVipUrCloudminer(vipUrCloudminerGet.VipId, vipUrCloudminerGet.CommodityId, vipUrCloudminerGet.CloudMinerCount);
+            int rows = _vipInfoDal.InsertVipUrCloudminer(vipUrCloudMinerGet.VipId, vipUrCloudMinerGet.CommodityId, vipUrCloudMinerGet.CloudMinerCount);
             return Json(new ResultDataModel<VipSettingModelResult> { Code = rows == 1 ? 0 : -1 });
         }
-        public IHttpActionResult UpdateVipUrCloudminer(VipUrCloudminerGet vipUrCloudminerGet)
+        public IHttpActionResult UpdateVipUrCloudMiner(VipUrCloudminerGet vipUrCloudMinerGet)
         {
-            int rows = _vipInfoDal.UpdateVipUrCloudminer(vipUrCloudminerGet.Id, vipUrCloudminerGet.VipId, vipUrCloudminerGet.CommodityId, vipUrCloudminerGet.CloudMinerCount);
+            int rows = _vipInfoDal.UpdateVipUrCloudminer(vipUrCloudMinerGet.Id, vipUrCloudMinerGet.VipId, vipUrCloudMinerGet.CommodityId, vipUrCloudMinerGet.CloudMinerCount);
             return Json(new ResultDataModel<VipSettingModelResult> { Code = rows == 1 ? 0 : -1 });
         }
-        public IHttpActionResult RemoveVipUrCloudminer(VipUrCloudminerGet vipUrCloudminerGet)
+        public IHttpActionResult RemoveVipUrCloudMiner(VipUrCloudminerGet vipUrCloudMinerGet)
         {
-            int rows = _vipInfoDal.DeleteVipUrCloudminer(vipUrCloudminerGet.Id);
+            int rows = _vipInfoDal.DeleteVipUrCloudminer(vipUrCloudMinerGet.Id);
             return Json(new ResultDataModel<VipSettingModelResult> { Code = rows > 0 ? 0 : -1 });
         }
     }
